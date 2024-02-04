@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  email           String      @unique
+  name            String 
+  profileImg      String      @default("/images/noUser.webp")
+  password        String
+  role            Role        @default(USER)
+  provider        String      @default("credentials")
+  createdAt       DateTime    @default(now())
+  emailVerified   DateTime?   @map("verifiedAt")
+  sessions        Session[]
+  posts           Post[]
+  @@map("users")
+}
+
+model Session {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  sessionToken    String      @unique
+  userId          String      @db.ObjectId
+  expires         DateTime    @map("expiresAt")
+  user            User        @relation(fields: [userId], references: [id])
+  @@map("sessions")
+}
+
+model Post {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  category        String
+  tags            String[]    @default([])
+  author          User?        @relation(fields: [userId], references: [id])
+  title           String
+  content         String
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime?    
+  previewImageUrl String?     @default("/images/noImage.webp")
+  published       Boolean     @default(true)
+  userId          String      @db.ObjectId
+  @@map("posts")
+}
+
+model VerificationToken {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  identifier      String
+  token           String      @unique
+  expires         DateTime    @map("expiresAt")
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
