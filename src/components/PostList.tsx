@@ -1,37 +1,48 @@
-import prisma from '@/libs/prisma';
+'use client';
+
+import { fetchPosts } from '@/utils/server/serverActions';
 import { cn } from '@/utils/style';
-import { FC } from 'react';
+import { Post } from '@prisma/client';
+import { FC, useEffect, useState } from 'react';
 import PostCard from './PostCard';
 
 type PostListProps = {
-  category?: string;
-  tag?: string;
+  category?: string | null;
+  tag?: string | null;
   className?: string;
 };
-const fetchData = async ({ category, tag }: PostListProps) => {
-  if (category) {
-    const data = await prisma.post.findMany({
-      where: {
-        category,
-      },
-    });
-    return data;
-  }
-  const data = await prisma.post.findMany();
-  return data;
-};
 
-const PostList: FC<PostListProps> = async ({ category, tag, className }) => {
-  const data = await fetchData({ category, tag });
-  console.log(data)
+const PostList: FC<PostListProps> = ({ category, tag, className }) => {
+  const [data, setData] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const data = await fetchPosts({ category, tag });
+        setData(data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [category, tag]);
+
+  if (loading) {
+    return <div>Loading...</div>; // 로딩 표시
+  }
+
   return (
-    <div className={cn('flex flex-col items-center gap-8 pt-20', className)}>
+    <div className={cn('flex flex-col items-center gap-8', className)}>
       <h1 className={cn('text-2xl font-medium', !category && !tag && 'hidden')}>
         {category ? category : `#${tag}`}
       </h1>
-      <div className="container grid grid-cols-4 gap-x-4 gap-y-6 pb-24 pt-20 lg:gap-x-7 lg:gap-y-12">
+      <div className="grid grid-cols-3 gap-x-4 gap-y-6 pb-24 pt-20 lg:gap-x-7 lg:gap-y-12">
         {data.map((post) => (
           <PostCard
+            key={post.id}
             id={post.id}
             title={post.title}
             content={post.content}

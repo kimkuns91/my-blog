@@ -1,13 +1,14 @@
-import prisma from '@/libs/prisma';
 import { useQuery } from '@tanstack/react-query';
+import { fetchCategories, fetchTags } from './server/serverActions'; // 별도 파일에서 가져온 함수 사용
 
 export const useCategories = () =>
   useQuery({
     queryKey: ['categories'],
     queryFn: async () => {
-      const data = await prisma.categories.findMany();
+      const data = await fetchCategories();
       console.log('categories : ', data);
-      return Array.from(new Set(data?.map((d) => d.category)));
+      if (!data) return [];
+      return Array.from(new Set(data.map((d) => d.category))).filter(Boolean);
     },
   });
 
@@ -15,8 +16,9 @@ export const useTags = () =>
   useQuery({
     queryKey: ['tags'],
     queryFn: async () => {
-      const data = await prisma.tags.findMany();
+      const data = await fetchTags();
       console.log('tags : ', data);
-      return Array.from(new Set(data?.flatMap((d) => JSON.parse(d.tag))));
+      if (!data) return [];
+      return Array.from(new Set(data.map((d) => d.tag))).filter(Boolean);
     },
   });

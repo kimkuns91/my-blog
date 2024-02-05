@@ -27,7 +27,7 @@ const PostCard: FC<PostCardProps> = ({
     <Link
       href={`/posts/${id}`}
       className={cn(
-        'max-w-sm rounded overflow-hidden shadow-lg border border-slate-700',
+        'max-w-sm rounded overflow-hidden shadow-lg border border-slate-700 transition-all hover:border-orange-400',
         className
       )}
     >

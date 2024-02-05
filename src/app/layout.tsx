@@ -55,11 +55,8 @@ export default async function RootLayout({
                   position="top-center"
                   autoClose={3000}
                   closeOnClick
-                  // rtl={false}
                   pauseOnFocusLoss={false}
                   theme="dark"
-                  // draggable
-                  // pauseOnHover
                 />
               </main>
               <Footer />
