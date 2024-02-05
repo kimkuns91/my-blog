@@ -22,3 +22,13 @@
 .custom-border::after {
   margin-left: 16px;
 }
+.ql-editor {
+  background: #fff;
+  min-height: 600px;
+}
+
+.ellipsis {
+  white-space: nowrap; /* 텍스트를 한 줄로 만듦 */
+  overflow: hidden; /* 내용이 넘치면 숨김 */
+  text-overflow: ellipsis; /* 넘치는 텍스트는 ...으로 표시 */
+}

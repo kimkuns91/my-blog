@@ -11,6 +11,15 @@ declare module 'next-auth' {
     createdAt: Date;
     emailVerified: Date;
   }
+  interface Profile {
+    properties: {
+      nickname: string;
+      profile_image: string;
+    }
+    kakao_account: {
+      email: string;
+    }
+  }
   interface Session {
     user: {
       id: string;

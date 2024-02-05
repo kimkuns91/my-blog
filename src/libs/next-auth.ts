@@ -4,6 +4,7 @@ import { randomBytes, randomUUID } from 'crypto';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
+import { v4 as uuidv4 } from 'uuid';
 import prisma from './prisma';
 
 export const authOptions: NextAuthOptions = {
@@ -52,11 +53,35 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, profile }) {
       if (profile) {
-        console.log('signIn profile : ', profile);
+        user.name = profile.properties?.nickname || user.name;
+        user.email = profile.kakao_account?.email || user.email;
       }
-      console.log('signIn user : ', user);
-      console.log('signIn profile : ', profile);
-      return true;
+      try {
+        let db_user = await prisma.user.findUnique({
+          where: { email: user.email! },
+        });
+        if (!db_user) {
+          db_user = await prisma.user.create({
+            data: {
+              email: user.email,
+              name: user.name,
+              password: uuidv4(),
+              profileImg: profile?.properties?.profile_image,
+              provider: 'kakao',
+            },
+          });
+        }
+        user.id = db_user.id;
+        user.profileImg =
+          profile?.properties?.profile_image || db_user.profileImg;
+        user.role = db_user.role;
+        user.provider = db_user.provider;
+
+        return true;
+      } catch (error) {
+        console.log('로그인 도중 에러가 발생했습니다. ' + error);
+        return false;
+      }
     },
     async jwt({ token, user }) {
       if (user) {
@@ -68,14 +93,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      console.log('session: ', session);
+      // console.log('session: ', session);
       if (session.user) {
         session.user.id = token.id as string;
         session.user.image = token.profileImg as string;
         session.user.role = token.role as Role;
         session.user.provider = token.provider as string;
       }
-      console.log('session: ', session);
+      // console.log('session: ', session);
       return session;
     },
   },

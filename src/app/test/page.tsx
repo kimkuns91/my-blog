@@ -1,17 +1,16 @@
-'use client';
+import prisma from '@/libs/prisma';
 
-import { toast } from 'react-toastify';
+async function getData() {
+  try {
+    const users = await prisma.categories.findMany();
+    return users;
+  } catch (error) {
+    throw new Error('Failed to fetch data: ' + (error as Error).message);
+  }
+}
 
-export default function Page() {
-  return (
-    <div>
-      <button
-        onClick={() => {
-          toast.success('안녕');
-        }}
-      >
-        버튼
-      </button>
-    </div>
-  );
+export default async function Page() {
+  const data = await getData();
+  console.log(data);
+  return <main></main>;
 }

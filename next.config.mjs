@@ -9,6 +9,12 @@ const nextConfig = {
         protocol: 'http',
         hostname: 'k.kakaocdn.net',
       },
+      {
+        protocol: 'https',
+        hostname: 'rgvzlonuavmjvodmalpd.supabase.co',
+        port: '',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
 };

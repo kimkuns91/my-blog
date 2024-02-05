@@ -2,7 +2,8 @@
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
-import { MarkdownEditor } from '@/components/Markdown';
+import QuillEidtor from '@/components/QuillEditor';
+import { useCategories, useTags } from '@/utils/hooks';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -14,11 +15,17 @@ export default function Page() {
   const { data: session } = useSession();
 
   const router = useRouter();
+
   const titleRef = useRef<HTMLInputElement>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const [existingCategories, setExistingCategories] = useState([]);
-  const [existingTags, setExistingTags] = useState([]);
+  const { data: existingCategories } = useCategories();
+  const { data: existingTags } = useTags();
+
+  console.log('existingCategories : ', existingCategories)
+
+  console.log('existingTags : ', existingTags)
+
 
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState('');
@@ -26,23 +33,30 @@ export default function Page() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(titleRef.current?.value);
+
     if (!titleRef.current?.value || titleRef.current.value.length === 0)
       return alert('제목을 입력해주세요.');
     if (category.length === 0) return alert('카테고리를 입력해주세요.');
     if (tags.length === 0) return alert('태그를 입력해주세요.');
     if (content.length === 0) return alert('글 내용을 입력해주세요.');
 
-    const postData = {
-      userId: session?.user.id,
-      title: titleRef.current.value,
-      category,
-      tags,
-      content,
-    };
+    const formData = new FormData();
+    formData.append('userId', session?.user.id!);
+    formData.append('title', titleRef.current?.value);
+    formData.append('category', category);
+    formData.append('tags', tags);
+    formData.append('content', content);
+
+    if (fileRef.current?.files?.[0]) {
+      formData.append('previewImage', fileRef.current.files[0]);
+    }
 
     try {
-      const response = await axios.post('/api/posts', postData);
+      const response = await axios.post('/api/posts', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data', // FormData를 사용할 때 필요한 헤더
+        },
+      });
       if (response.status === 201) {
         toast.success(response.data.message);
         router.push(`/posts/${response.data.postId}`);
@@ -54,11 +68,12 @@ export default function Page() {
       alert('글 작성 중 에러가 발생했습니다.');
     }
   };
+
   return (
-    <div className="container flex flex-col pb-20 pt-12">
+    <div className="container flex flex-col pb-20 pt-12 gap-6">
       <h1 className="mb-8 text-2xl font-medium">새로운 글</h1>
-      <form onSubmit={handleSubmit} className="text-black">
-        <div className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-col gap-3 text-black">
           <Input type="text" placeholder="제목" ref={titleRef} />
           <Input type="file" accept="image/*" ref={fileRef} />
           <ReactSelect
@@ -67,6 +82,7 @@ export default function Page() {
               value: category,
             }))}
             placeholder="카테고리"
+            instanceId="categories"
             onChange={(e) => e && setCategory(e?.value)}
             isMulti={false}
           />
@@ -79,13 +95,10 @@ export default function Page() {
             onChange={(e) =>
               e && setTags(JSON.stringify(e.map((e) => e.value)))
             }
+            instanceId="tags"
             isMulti
           />
-          <MarkdownEditor
-            height={500}
-            value={content}
-            onChange={(s) => setContent(s ?? '')}
-          />
+          <QuillEidtor content={content} setContent={setContent} />
         </div>
         <Button type="submit" className="mt-4">
           작성하기

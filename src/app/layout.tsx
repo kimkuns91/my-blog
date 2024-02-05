@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SessionProvider from '@/components/SessionProvider';
+import ReactQueryProviders from '@/utils/react-query-provider';
 import { cn } from '@/utils/style';
 import '@radix-ui/themes/styles.css';
 import type { Metadata } from 'next';
@@ -49,7 +50,7 @@ export default async function RootLayout({
             <Header />
             <div className="flex flex-1 flex-col overflow-y-auto">
               <main className="flex flex-1 flex-col">
-                {children}
+                <ReactQueryProviders>{children}</ReactQueryProviders>
                 <ToastContainer
                   position="top-center"
                   autoClose={3000}

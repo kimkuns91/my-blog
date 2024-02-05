@@ -35,12 +35,12 @@ model Post {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId
   category        String
   tags            String[]    @default([])
-  author          User?        @relation(fields: [userId], references: [id])
+  author          User?       @relation(fields: [userId], references: [id])
   title           String
   content         String
   createdAt       DateTime    @default(now())
   updatedAt       DateTime?    
-  previewImageUrl String?     @default("/images/noImage.webp")
+  previewImageUrl String?     
   published       Boolean     @default(true)
   userId          String      @db.ObjectId
   @@map("posts")
@@ -53,6 +53,19 @@ model VerificationToken {
   expires         DateTime    @map("expiresAt")
   @@unique([identifier, token])
   @@map("verification_tokens")
+}
+
+model Categories {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  category        String      @unique    
+  createdAt       DateTime    @default(now())
+  @@map("categories")
+}
+model Tags {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  tag             String      @unique    
+  createdAt       DateTime    @default(now())
+  @@map("tags")
 }
 
 enum Role {
