@@ -22,16 +22,16 @@ const PostCard: FC<PostCardProps> = ({
   tags,
   className,
 }) => {
-  console.log(tags);
+  // console.log(tags);
   return (
     <Link
       href={`/posts/${id}`}
       className={cn(
-        'max-w-sm rounded overflow-hidden shadow-lg border border-slate-700 transition-all hover:border-orange-400',
+        'max-w-sm rounded overflow-hidden hover:shadow-2xl border bg-[#030014] border-slate-700 transition-all backdrop-blur-m hover:shadow-[#9C5CF4]/50',
         className
       )}
     >
-      <div className="relative aspect-[1.8/1] w-full">
+      <div className="relative aspect-[1.8/1] w-full ">
         <Image
           src={previewImageUrl || '/images/thumbnail.png'}
           fill

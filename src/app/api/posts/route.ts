@@ -56,7 +56,7 @@ export async function POST(request: Request) {
         throw error;
       }
 
-      publicUrl = `https://rgvzlonuavmjvodmalpd.supabase.co/storage/v1/object/public/images/${data?.path}`;
+      publicUrl = `${process.env.SUPABASE_IMAGE_URL}${data?.path}`;
     }
 
     let parsedTags;

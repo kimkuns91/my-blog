@@ -9,7 +9,7 @@ import Profile from "./Profile";
 const Header = () => {
   const { data: session, status } = useSession();
   return (
-    <header className="w-full fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md  z-50">
+    <header className="w-full fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md z-[30]">
       <div className="container flex items-center justify-between py-4">
         <div className="flex-1">
           <Link href={"/"}>

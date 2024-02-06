@@ -4,9 +4,10 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
+import { MdEmail, MdKey } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import Button from '../Button';
-import Input from '../Input';
+import IconInput from '../IconInput';
 
 const LoginForm = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const LoginForm = () => {
         redirect: false,
       });
       if (res && res.status === 401) {
-        console.log()
+        console.log();
         toast.error('🐭 : ' + res.error + ' 찍찍! ');
       } else {
         toast.success('🐭 : 로그인 완료 찍찍! ');
@@ -35,7 +36,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex w-full max-w-[330px] mx-auto flex-col gap-4 py-20">
+    <div className="flex w-full max-w-[330px] mx-auto flex-col gap-4 min-h-screen justify-center z-20">
       <Image src={'/images/Logo.png'} alt="Logo" width={130} height={0} />
       <h2 className="mt-4 text-xl font-semibold leading-8">
         White Mouse Dev 에서,
@@ -44,7 +45,7 @@ const LoginForm = () => {
       </h2>
       <div className="mt-8">
         <button
-          className="flex w-full flex-row items-center justify-center gap-3 rounded-md bg-[#FEE500] px-5 py-3 font-medium"
+          className="flex w-full flex-row items-center justify-center gap-3 rounded-md bg-[#FEE500] px-5 py-3 font-medium text-slate-900"
           onClick={() => signIn('kakao', { redirect: true, callbackUrl: '/' })}
         >
           <Image
@@ -61,15 +62,25 @@ const LoginForm = () => {
           또는 이메일로 로그인
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6" action="">
-        <label htmlFor="email">Email</label>
-        <Input ref={emailRef} type="text" placeholder="아이디" />
-        <label htmlFor="email">Password</label>
-        <Input ref={passwordRef} type="password" placeholder="비밀번호" />
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4" action="">
+        <IconInput
+          icon={<MdEmail />}
+          ref={emailRef}
+          type="text"
+          name="email"
+          placeholder="name@flowbite.com"
+        />
+        <IconInput
+          icon={<MdKey />}
+          ref={passwordRef}
+          type="password"
+          name="password"
+          placeholder="········"
+        />
         <Button type="submit">로그인</Button>
       </form>
       <Button
-        className="bg-[#f2f2f2] text-[#5e5e5e] hover:bg-[#777]"
+        className="bg-[#f2f2f2] text-[#5e5e5e] hover:bg-[#777] mt-4"
         onClick={() => {
           router.push('/regist');
         }}

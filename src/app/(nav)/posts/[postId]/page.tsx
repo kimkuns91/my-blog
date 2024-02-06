@@ -23,22 +23,21 @@ async function getData({ postId }: { postId: string }) {
 
 export default async function PostPage({ params }: PostPageParams) {
   const data = await getData({ postId: params.postId });
-  console.log('data : ', data);
   if (!data) return null;
 
   return (
-    <div className="container flex flex-col gap-8 pb-40 pt-20">
+    <div className="container flex flex-col gap-8 pb-40 pt-40 min-h-screen">
       <h1 className="text-4xl font-bold">{data?.title}</h1>
       <div className="flex flex-row items-center gap-2">
         <Link
-          href={`/posts/search?categories=${data?.category}`}
+          href={`/posts?category=${data?.category}`}
           className="rounded-md bg-slate-800 px-2 py-1 text-sm text-white"
         >
           {data?.category}
         </Link>
         {data?.tags.map((tag) => (
           <Link
-            href={`/posts/search?tag=${tag}`}
+            href={`/posts?tag=${tag}`}
             key={tag}
             className="rounded-md bg-slate-200 px-2 py-1 text-sm text-slate-500"
           >

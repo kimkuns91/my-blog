@@ -17,7 +17,7 @@ const Skills = () => {
     >
       <SkillText />
 
-      <div className="flex flex-row justify-around flex-wrap mt-4 gap-5 items-center">
+      <div className="flex flex-row justify-around flex-wrap gap-5 items-center mt-20">
         {Skill_data.map((image, index) => (
           <SkillDataProvider
             key={index}
@@ -83,7 +83,7 @@ const Skills = () => {
             loop
             muted
             autoPlay
-            src="/videos/cards-video.webm"
+            src="/videos/encryption.webm"
           />
         </div>
       </div>

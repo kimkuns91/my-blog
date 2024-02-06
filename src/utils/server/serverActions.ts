@@ -49,7 +49,11 @@ export async function fetchPosts({
       });
       return data;
     }
-    const data = await prisma.post.findMany();
+    const data = await prisma.post.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
     return data;
   } catch (error) {
     console.error('Error fetching posts:', error);

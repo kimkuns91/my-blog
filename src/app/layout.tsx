@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SessionProvider from '@/components/SessionProvider';
+import StarsCanvas from '@/components/main/StarBackground';
 import ReactQueryProviders from '@/utils/react-query-provider';
 import { cn } from '@/utils/style';
 import '@radix-ui/themes/styles.css';
@@ -40,7 +41,7 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'flex text-sm lg:text-base bg-slate-950 text-slate-50',
+          'flex text-sm lg:text-base bg-slate-950 text-slate-50 scrollbar',
           notoSansKr.className,
           montserratEn.variable
         )}
@@ -59,6 +60,7 @@ export default async function RootLayout({
                   theme="dark"
                 />
               </main>
+              <StarsCanvas />
               <Footer />
             </div>
           </div>

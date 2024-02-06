@@ -22,9 +22,9 @@ export default function Page() {
   const { data: existingCategories } = useCategories();
   const { data: existingTags } = useTags();
 
-  console.log('existingCategories : ', existingCategories)
+  // console.log('existingCategories : ', existingCategories)
 
-  console.log('existingTags : ', existingTags)
+  // console.log('existingTags : ', existingTags)
 
 
   const [category, setCategory] = useState('');

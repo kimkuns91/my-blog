@@ -6,7 +6,7 @@ export const useCategories = () =>
     queryKey: ['categories'],
     queryFn: async () => {
       const data = await fetchCategories();
-      console.log('categories : ', data);
+      // console.log('categories : ', data);
       if (!data) return [];
       return Array.from(new Set(data.map((d) => d.category))).filter(Boolean);
     },
@@ -17,7 +17,7 @@ export const useTags = () =>
     queryKey: ['tags'],
     queryFn: async () => {
       const data = await fetchTags();
-      console.log('tags : ', data);
+      // console.log('tags : ', data);
       if (!data) return [];
       return Array.from(new Set(data.map((d) => d.tag))).filter(Boolean);
     },
