@@ -21,6 +21,7 @@
     "@types/uuid": "^9.0.8",
     "@uiw/react-markdown-preview": "^5.0.7",
     "@uiw/react-md-editor": "^4.0.3",
+    "@vercel/speed-insights": "^1.0.9",
     "@xeger/quill-image-actions": "^0.7.2",
     "@xeger/quill-image-formats": "^0.7.2",
     "axios": "^1.6.7",

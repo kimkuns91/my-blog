@@ -5,6 +5,7 @@ import StarsCanvas from '@/components/StarBackground';
 import ReactQueryProviders from '@/utils/react-query-provider';
 import { cn } from '@/utils/style';
 import '@radix-ui/themes/styles.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { Montserrat, Noto_Sans_KR } from 'next/font/google';
@@ -64,6 +65,7 @@ export default async function RootLayout({
               <Footer />
             </div>
           </div>
+          <SpeedInsights />
         </SessionProvider>
       </body>
     </html>
