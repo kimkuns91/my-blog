@@ -4,9 +4,9 @@ import { Post } from '@prisma/client';
 import { NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 
-export const config = {
-  runtime: 'experimental-edge', // Edge Function을 사용하기 위한 설정
-};
+// export const config = {
+//   runtime: 'experimental-edge', // Edge Function을 사용하기 위한 설정
+// };
 
 async function findOrCreateTag(tagName: string) {
   const tag = await prisma.tags.upsert({
