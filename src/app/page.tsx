@@ -1,6 +1,6 @@
 import Hero from '@/components/main/Hero';
 import Skills from '@/components/main/Skills';
-import StarsCanvas from '@/components/main/StarBackground';
+import StarsCanvas from '@/components/StarBackground';
 
 export default function Home() {
   return (

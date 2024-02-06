@@ -37,11 +37,16 @@ const LoginForm = () => {
 
   return (
     <div className="flex w-full max-w-[330px] mx-auto flex-col gap-4 min-h-screen justify-center z-20">
-      <Image src={'/images/Logo.png'} alt="Logo" width={130} height={0} />
-      <h2 className="mt-4 text-xl font-semibold leading-8">
-        White Mouse Dev 에서,
-        <br />
-        여러 프로그래밍 정보를 얻어가세요!
+      <div className="flex items-center justify-center">
+        <Image
+          src={'/images/LogoRow.png'}
+          alt="Logo"
+          width={240}
+          height={200}
+        />
+      </div>
+      <h2 className="mt-4 text-xl font-En font-bold text-center leading-8  text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+        Sign up and take away various programming information.
       </h2>
       <div className="mt-8">
         <button
@@ -77,7 +82,9 @@ const LoginForm = () => {
           name="password"
           placeholder="········"
         />
-        <Button type="submit">로그인</Button>
+        <Button type="submit" className="font-En">
+          Login
+        </Button>
       </form>
       <Button
         className="bg-[#f2f2f2] text-[#5e5e5e] hover:bg-[#777] mt-4"
@@ -85,7 +92,7 @@ const LoginForm = () => {
           router.push('/regist');
         }}
       >
-        이메일로 회원가입
+        Sign Up with your email
       </Button>
     </div>
   );

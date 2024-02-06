@@ -1,7 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SessionProvider from '@/components/SessionProvider';
-import StarsCanvas from '@/components/main/StarBackground';
+import StarsCanvas from '@/components/StarBackground';
 import ReactQueryProviders from '@/utils/react-query-provider';
 import { cn } from '@/utils/style';
 import '@radix-ui/themes/styles.css';
