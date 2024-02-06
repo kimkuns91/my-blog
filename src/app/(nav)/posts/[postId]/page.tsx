@@ -26,7 +26,7 @@ export default async function PostPage({ params }: PostPageParams) {
   if (!data) return null;
 
   return (
-    <div className="container flex flex-col gap-8 pb-40 pt-40 min-h-screen">
+    <div className="container flex min-h-screen flex-col gap-8 py-40">
       <h1 className="text-4xl font-bold">{data?.title}</h1>
       <div className="flex flex-row items-center gap-2">
         <Link
@@ -49,6 +49,7 @@ export default async function PostPage({ params }: PostPageParams) {
         </div>
       </div>
       <div
+        /* eslint-disable-next-line */
         className="quill-content"
         dangerouslySetInnerHTML={{ __html: data.content }}
       ></div>

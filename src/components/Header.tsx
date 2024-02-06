@@ -9,25 +9,25 @@ import Profile from "./Profile";
 const Header = () => {
   const { data: session, status } = useSession();
   return (
-    <header className="w-full fixed top-0 shadow-lg shadow-[#2A0E61]/50 bg-[#03001417] backdrop-blur-md z-[30]">
+    <header className="fixed top-0 z-[30] w-full bg-[#03001417] shadow-lg shadow-[#2A0E61]/50 backdrop-blur-md">
       <div className="container flex items-center justify-between py-4">
         <div className="flex-1">
           <Link href={"/"} >
-            <Image src={"/images/Logo.png"} className="ease-in-out transition-all hover:opacity-60" alt="logo" width={240} height={0} />
+            <Image src={"/images/Logo.png"} className="transition-all ease-in-out hover:opacity-60" alt="logo" width={240} height={0} />
           </Link>
         </div>
-        <div className="flex-1 flex items-center justify-between gap-4 rounded-full bg-[#0300145e] py-4 px-10">
+        <div className="flex flex-1 items-center justify-between gap-4 rounded-full bg-[#0300145e] px-10 py-4">
           {NavMenu.map((menu, index) => (
-            <Link className="font-En text-xl font-semibold ease-in-out transition-all hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500" href={menu.url} key={index}>
+            <Link className="font-En text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent" href={menu.url} key={index}>
               {menu.menu}
             </Link>
           ))}
         </div>
-        <div className="flex-1 flex items-center justify-end gap-6">
+        <div className="flex flex-1 items-center justify-end gap-6">
           {!session ? (
             <>
-              <Link className="font-En text-xl font-semibold ease-in-out transition-all hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500" href={"/login"}>Login</Link>
-              <Link className="font-En text-xl font-semibold ease-in-out transition-all hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500" href={"/regist"}>Sign Up</Link>
+              <Link className="font-En text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent" href={"/login"}>Login</Link>
+              <Link className="font-En text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent" href={"/regist"}>Sign Up</Link>
             </>
           ) : (
             <Profile

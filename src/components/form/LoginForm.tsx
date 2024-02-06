@@ -36,6 +36,7 @@ const LoginForm = () => {
   };
 
   return (
+    /* eslint-disable-next-line */
     <div className="flex w-full max-w-[330px] mx-auto flex-col gap-4 min-h-screen justify-center z-20">
       <div className="flex items-center justify-center">
         <Image
@@ -45,7 +46,8 @@ const LoginForm = () => {
           height={200}
         />
       </div>
-      <h2 className="mt-4 text-xl font-En font-bold text-center leading-8  text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+      {/* eslint-disable-next-line */}
+      <h2 className="mt-4 text-xl font-En font-bold text-center leading-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
         Sign up and take away various programming information.
       </h2>
       <div className="mt-8">
@@ -87,6 +89,7 @@ const LoginForm = () => {
         </Button>
       </form>
       <Button
+        /* eslint-disable-next-line */
         className="bg-[#f2f2f2] text-[#5e5e5e] hover:bg-[#777] mt-4"
         onClick={() => {
           router.push('/regist');

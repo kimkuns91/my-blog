@@ -17,17 +17,17 @@ const Details = () => {
       initial="hidden"
       variants={slideInFromTop}
       animate={inView ? 'visible' : 'hidden'}
-      className="container flex flex-col px-20 mt-40 w-full"
+      className="container mt-40 flex w-full flex-col px-20"
     >
       <motion.div variants={slideInFromRight(0.8)} className="opacity-[0.9]">
-        <h1 className="font-En text-6xl font-bold text-right text-transparent bg-clip-text bg-gradient-to-b from-[#48B6F5] to-[#085A8A]">
+        <h1 className="bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-right font-En text-6xl font-bold text-transparent">
           Details
         </h1>
       </motion.div>
-      <div className="h-full w-full flex flex-row gap-36 justify-center m-auto text-start mt-20">
+      <div className="m-auto mt-20 flex size-full flex-row justify-center gap-36 text-start">
         <motion.div
           variants={slideInFromLeft(0.8)}
-          className="flex-[1] flex flex-col gap-2 mt-6 text-2xl font-semibold text-white max-w-[600px] w-auto h-auto leading-10"
+          className="mt-6 flex size-auto max-w-[600px] flex-[1] flex-col gap-2 text-2xl font-semibold leading-10 text-white"
         >
           <div className="flex justify-between">
             <p className="text-slate-200">Name</p>
@@ -45,7 +45,7 @@ const Details = () => {
             <p className="text-slate-200">Location</p>
             <p className="text-slate-400">Seoul, Republic of Korea</p>
           </div>
-          <div className="flex flex-col justify-between gap-4 mt-8">
+          <div className="mt-8 flex flex-col justify-between gap-4">
             <p className="text-slate-200">Certifications</p>
             <div className="flex flex-col gap-4">
               <p className="text-slate-400">
@@ -61,7 +61,7 @@ const Details = () => {
         </motion.div>
         <motion.div
           variants={slideInFromRight(0.5)}
-          className="flex-[1] flex flex-col gap-2 mt-6 text-2xl font-semibold text-white max-w-[600px] w-auto h-auto leading-10"
+          className="mt-6 flex size-auto max-w-[600px] flex-[1] flex-col gap-2 text-2xl font-semibold leading-10 text-white"
         >
           <div className="flex flex-col justify-between gap-4">
             <p className="text-right text-slate-200">Experience</p>

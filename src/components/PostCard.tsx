@@ -27,7 +27,7 @@ const PostCard: FC<PostCardProps> = ({
     <Link
       href={`/posts/${id}`}
       className={cn(
-        'max-w-sm rounded overflow-hidden hover:shadow-2xl border bg-[#030014] border-slate-700 transition-all backdrop-blur-m hover:shadow-[#9C5CF4]/50',
+        'max-w-sm overflow-hidden rounded border border-slate-700 bg-[#030014] transition-all hover:shadow-2xl hover:shadow-[#9C5CF4]/50',
         className
       )}
     >
@@ -41,17 +41,17 @@ const PostCard: FC<PostCardProps> = ({
         />
       </div>
       <div className="px-6 py-4">
-        <h2 className="font-bold text-xl mb-2 ellipsis">{title}</h2>
+        <h2 className="ellipsis mb-2 text-xl font-bold">{title}</h2>
       </div>
-      <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-400 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+      <div className="px-6 pb-2 pt-4">
+        <span className="mb-2 mr-2 inline-block rounded-full bg-gray-400 px-3 py-1 text-sm font-semibold text-gray-700">
           {category}
         </span>
         {Array.isArray(tags) &&
           tags.map((tag) => (
             <span
               key={tag}
-              className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+              className="mb-2 mr-2 inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-700"
             >
               {tag}
             </span>

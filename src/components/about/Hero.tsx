@@ -13,25 +13,25 @@ const Hero = () => {
     <motion.div
       initial="hidden"
       animate="visible"
-      className="container flex flex-row items-center justify-center px-20 mt-40 w-full z-[20]"
+      className="container z-[20] mt-40 flex w-full flex-row items-center justify-center px-20"
     >
-      <div className="h-full w-full flex flex-col gap-5 justify-center m-auto text-start">
+      <div className="m-auto flex size-full flex-col justify-center gap-5 text-start">
         <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="font-En text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
             About Me
           </h1>
         </motion.div>
 
         <motion.div
           variants={slideInFromLeft(0.5)}
-          className="flex flex-col gap-6 mt-6 text-2xl font-semibold text-white max-w-[600px] w-auto h-auto leading-10"
+          className="mt-6 flex size-auto max-w-[600px] flex-col gap-6 text-2xl font-semibold leading-10 text-white"
         >
           <p>Hi there!</p>
           <p>
             I’m Kun Woo Kim.
           </p>
           <p>
-            I'm a Full Stack Developer with a passion for crafting seamless and
+            I{"'"}m a Full Stack Developer with a passion for crafting seamless and
             innovative solutions.
           </p>
           <p>
@@ -48,7 +48,7 @@ const Hero = () => {
       </div>
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="w-full h-full flex justify-end items-center"
+        className="flex size-full items-center justify-end"
       >
         <Image
           src="/images/MyPicture01.jpg"

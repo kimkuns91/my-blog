@@ -18,26 +18,26 @@ export default function Page() {
   const phoneRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div className='w-full min-h-screen relative flex items-center justify-center'>
+    <div className='relative flex min-h-screen w-full items-center justify-center'>
       <motion.div
         initial="hidden"
         animate="visible"
-        className="relative container flex flex-col font-En w-full z-[20]"
+        className="container relative z-[20] flex w-full flex-col font-En"
       >
         <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="font-En text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
             Contact
           </h1>
-          <p className="text-2xl font-semibold mt-8">
+          <p className="mt-8 text-2xl font-semibold">
             Do you have a project you would like to request?
           </p>
         </motion.div>
-        <div className="flex gap-4 mt-20 relative">
+        <div className="relative mt-20 flex gap-4">
           <motion.div
             variants={slideInFromLeft(0.8)}
-            className="flex-[1] flex flex-col items-center justify-center gap-10"
+            className="flex flex-[1] flex-col items-center justify-center gap-10"
           >
-            <div className="relative w-[300px] h-[300px] bg-slate-400">
+            <div className="relative size-[300px] bg-slate-400">
               <Image
                 src="/images/QRCode.png"
                 alt="MyPicture"
@@ -47,7 +47,7 @@ export default function Page() {
               />
             </div>
             <div className="flex gap-8">
-              <div className="font-En text-lg flex items-center gap-2">
+              <div className="flex items-center gap-2 font-En text-lg">
                 <MdEmail className="text-gray-500 dark:text-gray-400" />
                 <Link
                   href={`mailto:kimkuns98@gmail.com`}
@@ -56,7 +56,7 @@ export default function Page() {
                   kimkuns98@gmail.com
                 </Link>
               </div>
-              <div className="font-En text-lg flex items-center gap-2">
+              <div className="flex items-center gap-2 font-En text-lg">
                 <MdPhone className="text-gray-500 dark:text-gray-400" />
                 <Link href={`tel:01085959869`} className="hover:underline">
                   01085959869
@@ -90,7 +90,7 @@ export default function Page() {
               <textarea
                 placeholder="Message"
                 rows={4}
-                className="resize-none p-4 text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="resize-none rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               />
               <Button>Send</Button>
             </form>

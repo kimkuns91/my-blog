@@ -14,14 +14,14 @@ const HeroContent = () => {
     <motion.div
       initial="hidden"
       animate="visible"
-      className="container flex flex-row items-center justify-center px-20 mt-40 w-full z-[5]"
+      className="container z-[5] mt-40 flex w-full flex-row items-center justify-center px-20"
     >
-      <div className="h-full w-full flex flex-col gap-5 justify-center m-auto text-start">
+      <div className="m-auto flex size-full flex-col justify-center gap-5 text-start">
         <motion.div
           variants={slideInFromTop}
-          className="Welcome-box py-[8px] px-[7px] border border-[#7042f88b] opacity-[0.9]"
+          className="Welcome-box border border-[#7042f88b] px-[7px] py-[8px] opacity-[0.9]"
         >
-          <SparklesIcon className="text-[#b49bff] mr-[10px] h-5 w-5" />
+          <SparklesIcon className="mr-[10px] size-5 text-[#b49bff]" />
           <h1 className="Welcome-text text-[13px]">
             Fullstack Developer Portfolio
           </h1>
@@ -29,11 +29,11 @@ const HeroContent = () => {
 
         <motion.div
           variants={slideInFromLeft(0.5)}
-          className="flex flex-col gap-6 mt-6 text-6xl font-bold text-white max-w-[600px] w-auto h-auto"
+          className="mt-6 flex size-auto max-w-[600px] flex-col gap-6 text-6xl font-bold text-white"
         >
           <span>
             Providing
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+            <span className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
               {' '}
               the best{' '}
             </span>
@@ -43,7 +43,7 @@ const HeroContent = () => {
 
         <motion.p
           variants={slideInFromLeft(0.8)}
-          className="text-lg text-gray-400 my-5 max-w-[600px]"
+          className="my-5 max-w-[600px] text-lg text-gray-400"
         >
           I&apos;m a Full Stack Software Engineer with experience in Website,
           Mobile, and Software development. Check out my projects and skills.
@@ -51,7 +51,7 @@ const HeroContent = () => {
         <motion.a
           href="/posts"
           variants={slideInFromLeft(1)}
-          className="py-2 button-primary text-center text-white cursor-pointer rounded-lg max-w-[200px]"
+          className="button-primary max-w-[200px] cursor-pointer rounded-lg py-2 text-center text-white"
         >
           Learn More!
         </motion.a>
@@ -59,7 +59,7 @@ const HeroContent = () => {
 
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="w-full h-full flex justify-center items-center"
+        className="flex size-full items-center justify-center"
       >
         <Image
           src="/images/mainIconsdark.svg"

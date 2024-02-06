@@ -41,7 +41,7 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'flex text-sm lg:text-base bg-slate-950 text-slate-50 scrollbar',
+          'scrollbar flex bg-slate-950 text-sm text-slate-50 lg:text-base',
           notoSansKr.className,
           montserratEn.variable
         )}
