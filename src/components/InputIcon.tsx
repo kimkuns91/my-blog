@@ -1,10 +1,10 @@
 import { ComponentPropsWithoutRef, forwardRef, ReactNode } from 'react';
 
-type InputProps = ComponentPropsWithoutRef<'input'> & {
+type InputIconProps = ComponentPropsWithoutRef<'input'> & {
   icon?: ReactNode; // ReactNode 타입을 사용하여 아이콘을 React 컴포넌트로 받을 수 있게 함
 };
 
-const IconInput = forwardRef<HTMLInputElement, InputProps>(
+const InputIcon = forwardRef<HTMLInputElement, InputIconProps>(
   ({ className, icon, ...rest }, ref) => {
     return (
       <div className="relative mb-6">
@@ -23,6 +23,6 @@ const IconInput = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-export default IconInput;
+export default InputIcon;
 
-IconInput.displayName = 'Input';
+InputIcon.displayName = 'Input';

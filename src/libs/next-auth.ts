@@ -28,6 +28,9 @@ export const authOptions: NextAuthOptions = {
         });
         if (!existUser) throw new Error('해당 이메일로 가입한 적이 없습니다.');
 
+        if (existUser.provider !== 'credentials')
+          throw new Error('카카오 로그인으로 회원가입한 회원입니다.');
+
         const passwordMatch = await bcrypt.compare(
           credentials!.password,
           existUser.password
@@ -52,6 +55,8 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async signIn({ user, profile }) {
+      // console.log('user :', user)
+      // console.log('profile :', profile)
       if (profile) {
         user.name = profile.properties?.nickname || user.name;
         user.email = profile.kakao_account?.email || user.email;
@@ -61,16 +66,20 @@ export const authOptions: NextAuthOptions = {
           where: { email: user.email! },
         });
         if (!db_user) {
+          const hashedPassword = await bcrypt.hash(uuidv4(), 12);
           db_user = await prisma.user.create({
             data: {
               email: user.email,
               name: user.name,
-              password: uuidv4(),
+              password: hashedPassword,
               profileImg: profile?.properties?.profile_image,
               provider: 'kakao',
             },
           });
         }
+
+        if (profile && db_user.provider === 'credentials') throw new Error('이메일 가입하기로 가입한 회원입니다.');
+        
         user.id = db_user.id;
         user.profileImg =
           profile?.properties?.profile_image || db_user.profileImg;

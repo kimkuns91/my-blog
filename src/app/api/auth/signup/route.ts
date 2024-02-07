@@ -13,7 +13,7 @@ export async function POST(request: Request) {
         email
       }
     })
-    console.log('user :', user)
+    // console.log('user :', user)
     if (user) {
       return NextResponse.json(
         {

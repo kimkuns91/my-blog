@@ -1,12 +1,15 @@
 'use client';
 
+import { signUpSchema } from '@/libs/validations/signUpSchema';
 import { slideInFromTop } from '@/utils/motion';
 import axios from 'axios';
+import { Form, Formik } from 'formik';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
 import Button from '../Button';
-import Input from '../Input';
+import InputFormik from '../InputFormik';
 
 const RegistForm = () => {
   const router = useRouter();
@@ -46,15 +49,75 @@ const RegistForm = () => {
             Sign Up
           </h1>
         </motion.div>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-          <label htmlFor="email">EMAIL</label>
-          <Input ref={emailRef} type="text" name="email" />
-          <label htmlFor="name">Name</label>
-          <Input ref={nameRef} type="text" name="name" />
-          <label htmlFor="password">Password</label>
-          <Input ref={passwordRef} type="password" name="password" />
-          <Button type="submit">회원가입</Button>
-        </form>
+
+        <Formik
+          initialValues={{
+            email: '',
+            name: '',
+            password: '',
+            confirmPassword: '',
+          }}
+          validationSchema={signUpSchema}
+          onSubmit={async (data, { setSubmitting, resetForm }) => {
+            setSubmitting(true);
+            try {
+              const response = await axios.post('/api/auth/signup', {
+                email: data.email,
+                name: data.name,
+                password: data.password,
+              });
+
+              if (response.status === 201) {
+                toast.success('회원가입 성공');
+                resetForm();
+                router.push('/login');
+              }
+            } catch (error: any) {
+              toast.error(
+                error.response?.data?.message || 'An unexpected error occurred'
+              );
+            } finally {
+              setSubmitting(false);
+            }
+          }}
+        >
+          {({ isSubmitting, errors, touched }) => (
+            <Form className="flex flex-col gap-6">
+              <InputFormik
+                label="EMAIL"
+                name={'email'}
+                type={'email'}
+                touched={touched}
+                errors={errors}
+              />
+              <InputFormik
+                label="NAME"
+                name={'name'}
+                type={'text'}
+                touched={touched}
+                errors={errors}
+              />
+
+              <InputFormik
+                label="PASSWORD"
+                name={'password'}
+                type={'password'}
+                touched={touched}
+                errors={errors}
+              />
+              <InputFormik
+                label="CONFIRM PASSWORD"
+                name={'confirmPassword'}
+                type={'password'}
+                touched={touched}
+                errors={errors}
+              />
+              <Button type="submit" disabled={isSubmitting}>
+                Sign Up
+              </Button>
+            </Form>
+          )}
+        </Formik>
       </motion.div>
     </div>
   );

@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { MdEmail, MdKey } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import Button from '../Button';
-import IconInput from '../IconInput';
+import IconInput from '../InputIcon';
 
 const LoginForm = () => {
   const router = useRouter();

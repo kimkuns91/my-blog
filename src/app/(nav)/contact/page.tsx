@@ -1,11 +1,11 @@
 'use client';
 
 import Button from '@/components/Button';
-import IconInput from '@/components/IconInput';
+import IconInput from '@/components/InputIcon';
 import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
+    slideInFromLeft,
+    slideInFromRight,
+    slideInFromTop,
 } from '@/utils/motion';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
