@@ -6,8 +6,17 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
 import { v4 as uuidv4 } from 'uuid';
 import prisma from './prisma';
+if (
+  !process.env.KAKAO_CLIENT_ID ||
+  !process.env.KAKAO_CLIENT_SECRET ||
+  !process.env.NEXTAUTH_SECRET
+) {
+  console.error('환경 변수가 설정되지 않았습니다.');
+  process.exit(1);
+}
 
 export const authOptions: NextAuthOptions = {
+  secret: process.env.NEXTAUTH_SECRET,
   providers: [
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
@@ -44,55 +53,69 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/login',
+    error: '/error',
   },
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60,
-    updateAge: 24 * 60 * 60,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
     generateSessionToken: () => {
       return randomUUID?.() ?? randomBytes(32).toString('hex');
     },
   },
   callbacks: {
-    async signIn({ user, profile }) {
-      // console.log('user :', user)
-      // console.log('profile :', profile)
-      if (profile) {
-        user.name = profile.properties?.nickname || user.name;
-        user.email = profile.kakao_account?.email || user.email;
-      }
+    async signIn({ user, profile, account }) {
+      console.log('user : ', user);
+      console.log('profile : ', profile);
+      console.log('account : ', account);
       try {
-        let db_user = await prisma.user.findUnique({
-          where: { email: user.email! },
-        });
-        if (!db_user) {
-          const hashedPassword = await bcrypt.hash(uuidv4(), 12);
-          db_user = await prisma.user.create({
-            data: {
-              email: user.email,
-              name: user.name,
-              password: hashedPassword,
-              profileImg: profile?.properties?.profile_image,
-              provider: 'kakao',
-            },
+        if (account?.provider === 'kakao') {
+          console.log('Kakao로 로그인 시도');
+
+          const db_user = await prisma.user.findUnique({
+            where: { email: user.email! },
           });
+
+          // 이미 이메일 인증으로 가입한 경우 에러 처리
+          if (db_user && db_user.provider === 'credentials') {
+            throw new Error(
+              '이미 이메일 인증으로 가입된 계정입니다. 해당 계정으로 로그인해주세요.'
+            );
+          }
+
+          if (!db_user) {
+            const hashedPassword = await bcrypt.hash(uuidv4(), 12);
+            const newUser = await prisma.user.create({
+              data: {
+                email: user.email,
+                name: user.name,
+                password: hashedPassword,
+                profileImg: profile?.properties?.profile_image,
+                provider: 'kakao',
+              },
+            });
+
+            user.id = newUser.id;
+            user.profileImg = newUser.profileImg;
+            user.role = newUser.role;
+            user.provider = newUser.provider;
+            return true;
+          }
+
+          user.id = db_user.id;
+          user.profileImg = db_user.profileImg;
+          user.role = db_user.role;
+          user.provider = db_user.provider;
+          return true;
         }
-
-        if (profile && db_user.provider === 'credentials') throw new Error('이메일 가입하기로 가입한 회원입니다.');
-        
-        user.id = db_user.id;
-        user.profileImg =
-          profile?.properties?.profile_image || db_user.profileImg;
-        user.role = db_user.role;
-        user.provider = db_user.provider;
-
         return true;
       } catch (error) {
-        console.log('로그인 도중 에러가 발생했습니다. ' + error);
+        console.error('로그인 도중 에러가 발생했습니다: ' + error);
         return false;
       }
     },
     async jwt({ token, user }) {
+      console.log('jwt callback :', { token, user });
       if (user) {
         token.id = user.id;
         token.profileImg = user.profileImg;
@@ -102,16 +125,14 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      // console.log('session: ', session);
+      console.log('session callback :', { session, token });
       if (session.user) {
         session.user.id = token.id as string;
         session.user.image = token.profileImg as string;
         session.user.role = token.role as Role;
         session.user.provider = token.provider as string;
       }
-      // console.log('session: ', session);
       return session;
     },
   },
-  secret: process.env.SECRET,
 };
