@@ -2,6 +2,7 @@
 
 import { fetchPosts } from '@/utils/server/serverActions';
 import { Post } from '@prisma/client';
+import { useSession } from 'next-auth/react';
 import { FC, useEffect, useState } from 'react';
 import PostCard from './PostCard';
 
@@ -12,6 +13,7 @@ type PostListProps = {
 };
 
 const PostList: FC<PostListProps> = ({ category, tag, className }) => {
+  const { data: session } = useSession();
   const [data, setData] = useState<Post[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -19,7 +21,11 @@ const PostList: FC<PostListProps> = ({ category, tag, className }) => {
     (async () => {
       try {
         setLoading(true);
-        const data = await fetchPosts({ category, tag });
+        const data = await fetchPosts({
+          category,
+          tag,
+          role: session?.user.role,
+        });
         setData(data);
       } catch (error) {
         console.log(error);
@@ -27,10 +33,10 @@ const PostList: FC<PostListProps> = ({ category, tag, className }) => {
         setLoading(false);
       }
     })();
-  }, [category, tag]);
+  }, [category, tag, session?.user.role]);
 
   if (loading) {
-    return null
+    return null;
   }
 
   return (

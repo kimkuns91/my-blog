@@ -19,6 +19,8 @@ model User {
   emailVerified   DateTime?   @map("verifiedAt")
   sessions        Session[]
   posts           Post[]
+  likes           Like[]
+  comments        Comment[]
   @@map("users")
 }
 
@@ -43,9 +45,35 @@ model Post {
   previewImageUrl String?     
   published       Boolean     @default(true)
   userId          String      @db.ObjectId
+  likes           Like[]
+  comments        Comment[]
   @@map("posts")
 }
+model Like {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  postId    String   @db.ObjectId
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
 
+  @@map("likes")
+  @@unique([userId, postId]) // Ensure that a user can like a post only once
+}
+model Comment {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  userId    String     @db.ObjectId
+  postId    String     @db.ObjectId
+  createdAt DateTime   @default(now())
+  updatedAt DateTime?  
+
+  user      User       @relation(fields: [userId], references: [id])
+  post      Post       @relation(fields: [postId], references: [id])
+  parentCommentId String? @db.ObjectId // For nested comments (optional)
+
+  @@map("comments")
+}
 model VerificationToken {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId
   identifier      String

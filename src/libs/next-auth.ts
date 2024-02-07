@@ -115,7 +115,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
     async jwt({ token, user }) {
-      console.log('jwt callback :', { token, user });
+      // console.log('jwt callback :', { token, user });
       if (user) {
         token.id = user.id;
         token.profileImg = user.profileImg;
@@ -125,7 +125,7 @@ export const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      console.log('session callback :', { session, token });
+      // console.log('session callback :', { session, token });
       if (session.user) {
         session.user.id = token.id as string;
         session.user.image = token.profileImg as string;

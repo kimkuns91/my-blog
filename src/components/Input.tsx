@@ -9,12 +9,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       <input
         className={cn(
           'rounded-md border border-gray-300 p-2 transition-all hover:border-gray-400',
+          className
         )}
         ref={ref}
         {...rest}
       />
     );
-  },
+  }
 );
 
 export default Input;
