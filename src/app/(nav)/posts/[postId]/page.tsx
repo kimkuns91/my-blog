@@ -1,5 +1,4 @@
 import PostDoc from '@/components/posts/PostDoc';
-import prisma from '@/libs/prisma';
 import { getPost } from '@/utils/fetch';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -31,23 +30,12 @@ export const generateMetadata = async ({
   };
 };
 
-export const generateStaticParams = async () => {
-  const posts = await prisma.post.findMany({
-    select: { id: true },
-  });
-
-  return (
-    posts?.map(({ id }) => ({
-      params: { id: id.toString() },
-    })) ?? []
-  );
-};
-
 export default async function PostPage({ params }: PostProps) {
-  const postId= decodeURIComponent(params.postId);
+  const postId= params.postId
+  console.log('postId : ', postId)
   const post = await getPost(postId);
 
   if (!post) return notFound();
 
-  return <PostDoc post={post} />;
+  return <PostDoc {...post} />;
 }

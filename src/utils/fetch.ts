@@ -2,68 +2,61 @@
 
 import prisma from '@/libs/prisma';
 import { Prisma } from '@prisma/client';
-import { cache } from 'react';
 
 const isValidObjectId = (id: string): boolean => /^[0-9a-fA-F]{24}$/.test(id);
 
 // 모든 Posts 자료 가져오기
-export const getPosts = cache(
-  async ({
-    category,
-    tag,
-    page = 0,
-  }: {
-    category?: string;
-    tag?: string;
-    page?: number;
-  }) => {
-    try {
-      let whereClause: Prisma.PostWhereInput = {};
-
-      if (category) whereClause.category = category;
-      if (tag) whereClause.tags = { has: tag };
-
-      const posts = await prisma.post.findMany({
-        where: whereClause,
-        orderBy: {
-          createdAt: 'desc',
-        },
-        skip: page * 5,
-        take: 5,
-      });
-
-      return posts;
-    } catch (error) {
-      console.error('Error getPost Function :', error);
-      throw error;
-    }
-  }
-);
-
-// postId로 Post 자료 가져오기
-export const getPost = cache(async (postId: string) => {
+export const getPosts = async ({
+  category,
+  tag,
+  page = 0,
+}: {
+  category?: string;
+  tag?: string;
+  page?: number;
+}) => {
   try {
-    if (!isValidObjectId(postId)) {
-      return null; //
-    }
+    let whereClause: Prisma.PostWhereInput = {};
 
-    const post = await prisma.post.findUnique({
-      where: {
-        id: postId,
+    if (category) whereClause.category = category;
+    if (tag) whereClause.tags = { has: tag };
+
+    const posts = await prisma.post.findMany({
+      where: whereClause,
+      orderBy: {
+        createdAt: 'desc',
       },
+      skip: page * 5,
+      take: 5,
     });
 
-    if (!post) return null;
-
-    return post;
+    return posts;
   } catch (error) {
     console.error('Error getPost Function :', error);
     throw error;
   }
-});
+};
+
+// postId로 Post 자료 가져오기
+export const getPost = async (postId: string) => {
+  if (!isValidObjectId(postId)) {
+    return null; //
+  }
+
+  const post = await prisma.post.findUnique({
+    where: {
+      id: postId,
+    },
+  });
+  console.log('post :', post);
+
+  if (!post) return null;
+
+  return post;
+};
 
 // 모든 Tags 가져오기
-export const getTags = cache(async () => {
+export const getTags = async () => {
   try {
     const tags = await prisma.tags.findMany();
 
@@ -74,10 +67,10 @@ export const getTags = cache(async () => {
     console.error('Error getTags Function :', error);
     throw error;
   }
-});
+};
 
 // 모든 Categories 가져오기
-export const getCategories = cache(async () => {
+export const getCategories = async () => {
   try {
     const categories = await prisma.categories.findMany();
     if (!categories) return [];
@@ -87,10 +80,10 @@ export const getCategories = cache(async () => {
     console.error('Error getCategories Function :', error);
     throw error;
   }
-});
+};
 
 // Post의 노출 여부 변경하기
-export const handlePostPublished = cache(async (postId: string) => {
+export const handlePostPublished = async (postId: string) => {
   try {
     const post = await prisma.post.findUnique({
       where: {
@@ -113,4 +106,4 @@ export const handlePostPublished = cache(async (postId: string) => {
     console.error('Error handlePostPublished Function:', error);
     throw error;
   }
-});
+};
