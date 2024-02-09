@@ -2,6 +2,7 @@
 
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 import { FaGithub } from 'react-icons/fa';
@@ -107,6 +108,9 @@ const LoginForm = () => {
       >
         Sign Up with your email
       </Button>
+      <div className="flex justify-end">
+        <Link href={'/changepassword'} className='border-b pb-1 transition-all ease-in-out hover:opacity-70'>비밀번호 찾기</Link>
+      </div>
     </div>
   );
 };
