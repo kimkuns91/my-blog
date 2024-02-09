@@ -1,41 +1,36 @@
-'use client';
+import PostContainer from '@/components/posts/PostContainer';
+import { getPosts } from '@/utils/fetch';
+import { Metadata } from 'next';
 
-import PostList from '@/components/PostList';
-import PostSideBar from '@/components/PostSideBar';
-import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
-} from '@/utils/motion';
-import { motion } from 'framer-motion';
-import { useSearchParams } from 'next/navigation';
+export const metadata: Metadata = {
+  title: 'WhiteMouseDev - Posts',
+  description: '개발 관련 이야기를 나누는 블로그입니다.',
+};
 
-export default function Page() {
-  const searchParams = useSearchParams();
+export default async function Page({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | undefined };
+}) {
+  let category = '';
+  let tag = '';
 
-  const keyword = searchParams.get('keyword');
-  const category = searchParams.get('category');
-  const tag = searchParams.get('tag');
+  if (searchParams?.category) {
+    category = decodeURIComponent(searchParams.category);
+  }
+  if (searchParams?.tag) {
+    tag = decodeURIComponent(searchParams.tag);
+  }
 
+  const posts = await getPosts({
+    category,
+    tag,
+  });
   return (
-    <motion.div
-      initial="hidden"
-      animate="visible"
-      className="container z-[20] flex min-h-screen w-full flex-col items-center gap-2 py-40"
-    >
-      <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
-          Posts {category && `# ${category}`} {tag && `# ${tag}`}
-        </h1>
-      </motion.div>
-      <div className="flex w-full">
-        <motion.div variants={slideInFromLeft(0.8)} className="flex-1">
-          <PostSideBar />
-        </motion.div>
-        <motion.div variants={slideInFromRight(0.8)} className="flex-[5]">
-          <PostList category={category} tag={tag} />
-        </motion.div>
-      </div>
-    </motion.div>
+    <PostContainer
+      category={searchParams?.category}
+      tag={searchParams?.tag}
+      posts={posts}
+    />
   );
 }

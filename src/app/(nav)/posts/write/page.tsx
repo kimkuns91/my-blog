@@ -8,11 +8,11 @@ import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useRef, useState } from 'react';
+import { MultiValue } from 'react-select';
 import ReactSelect from 'react-select/creatable';
 import { toast } from 'react-toastify';
 
-const QuillEidtor = dynamic(() => import('@/components/QuillEditor'), {
-  loading: () => <div>...loading</div>,
+const QuillEidtor = dynamic(async () => await import('@/components/QuillEditor'), {
   ssr: false,
 });
 
@@ -28,7 +28,7 @@ export default function Page() {
   const { data: existingTags } = useTags();
 
   const [category, setCategory] = useState('');
-  const [tags, setTags] = useState('');
+  const [tags, setTags] = useState<{ label: string; value: string }[]>([]);
   const [content, setContent] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -40,11 +40,13 @@ export default function Page() {
     if (tags.length === 0) return toast.error('태그를 입력해주세요.');
     if (content.length === 0) return toast.error('글 내용을 입력해주세요.');
 
+    const tagsValue = JSON.stringify(tags.map((tag) => tag.value));
+
     const formData = new FormData();
     formData.append('userId', session?.user.id!);
     formData.append('title', titleRef.current?.value);
     formData.append('category', category);
-    formData.append('tags', tags);
+    formData.append('tags', tagsValue);
     formData.append('content', content);
 
     if (fileRef.current?.files?.[0]) {
@@ -61,11 +63,11 @@ export default function Page() {
         toast.success(response.data.message);
         router.push(`/posts/${response.data.postId}`);
       } else {
-        alert('글 작성에 실패했습니다.');
+        toast.error('글 작성에 실패했습니다.');
       }
     } catch (error) {
       console.error('Post creation failed:', error);
-      alert('글 작성 중 에러가 발생했습니다.');
+      toast.error('글 작성 중 에러가 발생했습니다.');
     }
   };
 
@@ -97,10 +99,13 @@ export default function Page() {
               value: tag,
             }))}
             placeholder="태그"
-            onChange={(e) =>
-              e && setTags(JSON.stringify(e.map((e) => e.value)))
-            }
             instanceId="tags"
+            value={tags}
+            onChange={(
+              selectedOptions: MultiValue<{ label: string; value: string }>
+            ) => {
+              setTags([...selectedOptions]);
+            }}
             isMulti
           />
           <QuillEidtor content={content} setContent={setContent} />

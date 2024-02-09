@@ -16,13 +16,11 @@ interface PostCardProps {
 const PostCard: FC<PostCardProps> = ({
   id,
   title,
-  content,
   previewImageUrl,
   category,
   tags,
   className,
 }) => {
-  // console.log(tags);
   return (
     <Link
       href={`/posts/${id}`}
@@ -31,13 +29,14 @@ const PostCard: FC<PostCardProps> = ({
         className
       )}
     >
-      <div className="relative aspect-[1.8/1] w-full ">
+      <div className="relative aspect-[1.8/1] w-full">
         <Image
           src={previewImageUrl || '/images/thumbnail.png'}
           fill
           sizes="360px"
           alt={title}
           className="object-cover"
+          priority
         />
       </div>
       <div className="px-6 py-4">

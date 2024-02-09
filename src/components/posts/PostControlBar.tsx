@@ -1,6 +1,6 @@
 'use client';
 
-import { handlePostPublished } from '@/utils/server/serverActions';
+import { handlePostPublished } from '@/utils/fetch';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -41,7 +41,7 @@ const PostControlBar: React.FC<PostControlBarProps> = ({
 
   const handlePublished = async () => {
     try {
-      const response = await handlePostPublished({ postId });
+      const response = await handlePostPublished(postId);
       setPublished(response.published); // 성공적으로 상태 변경 후, 로컬 상태 업데이트
       toast.success(
         `해당 글이 ${

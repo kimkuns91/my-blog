@@ -4,8 +4,10 @@ import { useCategories } from '@/utils/hooks';
 import Link from 'next/link';
 import { MdHome } from 'react-icons/md';
 import { PiTagChevronFill } from 'react-icons/pi';
-const PostSideBar = () => {
+
+const PostSideBar: React.FC = () => {
   const { data: existingCategories } = useCategories();
+
   return (
     <div className="flex flex-col items-start gap-4 pt-20">
       <Link

@@ -9,6 +9,7 @@ export default function NotFound() {
   useEffect(() => {
     toast.error('🐭 : 잘못된 경로 입니다. 쥐구멍으로 돌아가세요! 찍찍! ');
   }, []);
+  
   return (
     <div className="container z-20 flex h-screen flex-col items-center justify-center">
       <div className="flex items-center justify-center">

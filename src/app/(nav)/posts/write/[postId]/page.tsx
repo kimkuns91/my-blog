@@ -2,8 +2,8 @@
 
 import Button from '@/components/Button';
 import Input from '@/components/Input';
+import { getPost } from '@/utils/fetch';
 import { useCategories, useTags } from '@/utils/hooks';
-import { fetchPostByID } from '@/utils/server/serverActions';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
@@ -12,6 +12,7 @@ import { FormEvent, useEffect, useRef, useState } from 'react';
 import type { MultiValue } from 'react-select';
 import ReactSelect from 'react-select/creatable';
 import { toast } from 'react-toastify';
+
 const QuillEidtor = dynamic(() => import('@/components/QuillEditor'), {
   loading: () => <div>...loading</div>,
   ssr: false,
@@ -83,7 +84,7 @@ export default function Page({ params }: PostPageParams) {
     (async () => {
       try {
         setLoading(true);
-        const data = await fetchPostByID({ postId });
+        const data = await getPost(postId);
         if (data) {
           console.log(data);
           // title 필드 설정

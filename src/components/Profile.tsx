@@ -1,9 +1,10 @@
 'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface ProfileProps {
@@ -12,8 +13,22 @@ interface ProfileProps {
   imageUrl: string;
 }
 
-const Profile = ({ role, name, imageUrl }: ProfileProps) => {
+const Profile = () => {
   const router = useRouter();
+  const { data: session } = useSession();
+  const [role, setRole] = useState<string>('');
+  const [name, setName] = useState<string>('');
+  const [imageUrl, setImageUrl] = useState<string>('');
+
+  useEffect(() => {
+    if (session && session.user) {
+      setRole(session.user.role);
+      setName(session.user.name);
+      setImageUrl(session.user.image);
+    } else {
+      signOut();
+    }
+  }, [session, session?.user]);
 
   return (
     <DropdownMenu.Root>

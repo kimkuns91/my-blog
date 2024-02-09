@@ -1,13 +1,11 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useMemo, useRef } from 'react';
 
 import { supabase } from '@/libs/supabase';
 import { ImageActions } from '@xeger/quill-image-actions';
 import { ImageFormats } from '@xeger/quill-image-formats';
-import type ReactQuill from 'react-quill';
-import { Quill, ReactQuillProps } from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,20 +15,6 @@ interface QuillEditorProps {
   content: string;
   setContent: (char: string) => void;
 }
-interface ForwardedQuillComponent extends ReactQuillProps {
-  forwardedRef: React.Ref<ReactQuill>;
-}
-
-const QuillWrapper = dynamic(
-  async () => {
-    const { default: RQ } = await import('react-quill');
-    const Quill = ({ forwardedRef, ...props }: ForwardedQuillComponent) => (
-      <RQ ref={forwardedRef} {...props} />
-    );
-    return Quill;
-  },
-  { loading: () => <div>...loading</div>, ssr: false }
-);
 
 const formats = [
   'font',
@@ -55,12 +39,14 @@ const formats = [
   'height',
   'width',
 ];
+
 const Size = Quill.import('formats/size');
 Size.whitelist = ['small', 'medium', 'large', 'huge'];
 Quill.register(Size, true);
 
 const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
   const quillRef = useRef<ReactQuill>(null);
+  
   const imageHandler = async () => {
     const input = document.createElement('input');
     input.setAttribute('type', 'file');
@@ -142,8 +128,8 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
 
   return (
     <div>
-      <QuillWrapper
-        forwardedRef={quillRef}
+      <ReactQuill
+        ref={quillRef}
         style={{
           width: '100%',
           backgroundColor: '#FFF',
