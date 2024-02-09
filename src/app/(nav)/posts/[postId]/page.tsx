@@ -44,7 +44,7 @@ export const generateStaticParams = async () => {
 };
 
 export default async function PostPage({ params }: PostProps) {
-  const postId = params.postId;
+  const postId= decodeURIComponent(params.postId);
   const post = await getPost(postId);
 
   if (!post) return notFound();
