@@ -25,16 +25,18 @@ export const useTags = () =>
 export const usePosts = ({
   category,
   tag,
-  initalPosts
+  initalPosts,
+  page,
 }: {
   category?: string;
   tag?: string;
   initalPosts?: Post[];
+  page?: number;
 }) =>
   useInfiniteQuery({
     queryKey: ['posts', category, tag],
     queryFn: async ({ pageParam }) => {
-      const posts = await getPosts({ category, tag, page: pageParam });
+      const posts = await getPosts({ category, tag, page });
       if (!posts)
         return {
           posts: [],

@@ -31,8 +31,7 @@ export const generateMetadata = async ({
 };
 
 export default async function PostPage({ params }: PostProps) {
-  const postId= params.postId
-  console.log('postId : ', postId)
+  const postId = params.postId;
   const post = await getPost(postId);
 
   if (!post) return notFound();

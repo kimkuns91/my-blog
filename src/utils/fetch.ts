@@ -5,7 +5,7 @@ import { Prisma } from '@prisma/client';
 
 const isValidObjectId = (id: string): boolean => /^[0-9a-fA-F]{24}$/.test(id);
 
-// 모든 Posts 자료 가져오기
+// 모든 Posts 자료 6개씩 가져오기
 export const getPosts = async ({
   category,
   tag,
@@ -21,19 +21,21 @@ export const getPosts = async ({
     if (category) whereClause.category = category;
     if (tag) whereClause.tags = { has: tag };
 
+    // page 매개변수를 안전하게 처리
     const posts = await prisma.post.findMany({
       where: whereClause,
       orderBy: {
         createdAt: 'desc',
       },
-      skip: page * 5,
-      take: 5,
+      skip: page * 6,
+      take: 6,
     });
 
     return posts;
   } catch (error) {
     console.error('Error getPost Function :', error);
-    throw error;
+    // 여기서 적절한 오류 처리 또는 사용자 정의 오류 반환
+    throw new Error('Fetching posts failed');
   }
 };
 
@@ -48,7 +50,6 @@ export const getPost = async (postId: string) => {
       id: postId,
     },
   });
-  console.log('post :', post);
 
   if (!post) return null;
 

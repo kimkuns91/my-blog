@@ -37,7 +37,7 @@ const PostContainer: React.FC<PostContainerProps> = ({
           <PostSideBar />
         </motion.div>
         <motion.div variants={slideInFromRight(0.8)} className="flex-[5]">
-          <PostList posts={posts} />
+          <PostList posts={posts} category={category} tag={tag} />
         </motion.div>
       </div>
     </motion.div>
