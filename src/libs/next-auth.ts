@@ -3,10 +3,14 @@ import bcrypt from 'bcryptjs';
 import { randomBytes, randomUUID } from 'crypto';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GithubProvider from 'next-auth/providers/github';
 import KakaoProvider from 'next-auth/providers/kakao';
 import { v4 as uuidv4 } from 'uuid';
 import prisma from './prisma';
+
 if (
+  !process.env.GITHUB_ID ||
+  !process.env.GITHUB_SECRET ||
   !process.env.KAKAO_CLIENT_ID ||
   !process.env.KAKAO_CLIENT_SECRET ||
   !process.env.NEXTAUTH_SECRET
@@ -18,6 +22,10 @@ if (
 export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
     KakaoProvider({
       clientId: process.env.KAKAO_CLIENT_ID!,
       clientSecret: process.env.KAKAO_CLIENT_SECRET!,
@@ -46,6 +54,9 @@ export const authOptions: NextAuthOptions = {
         );
 
         if (!passwordMatch) throw new Error('비밀번호 오류 입니다.');
+
+        if (!existUser.emailVerified)
+          throw new Error('이메일 인증을 해주세요.');
 
         return existUser as any;
       },
@@ -92,6 +103,43 @@ export const authOptions: NextAuthOptions = {
                 password: hashedPassword,
                 profileImg: profile?.properties?.profile_image,
                 provider: 'kakao',
+              },
+            });
+
+            user.id = newUser.id;
+            user.profileImg = newUser.profileImg;
+            user.role = newUser.role;
+            user.provider = newUser.provider;
+            return true;
+          }
+
+          user.id = db_user.id;
+          user.profileImg = db_user.profileImg;
+          user.role = db_user.role;
+          user.provider = db_user.provider;
+          return true;
+        }
+        if (account?.provider === 'github') {
+          const db_user = await prisma.user.findUnique({
+            where: { email: user.email! },
+          });
+
+          // 이미 이메일 인증으로 가입한 경우 에러 처리
+          if (db_user && db_user.provider !== 'github') {
+            throw new Error(
+              `${db_user.provider}으로 가입된 계정입니다. 해당 계정으로 로그인해주세요.`
+            );
+          }
+
+          if (!db_user) {
+            const hashedPassword = await bcrypt.hash(uuidv4(), 12);
+            const newUser = await prisma.user.create({
+              data: {
+                email: user.email,
+                name: user.name,
+                password: hashedPassword,
+                profileImg: user.image!,
+                provider: 'github',
               },
             });
 

@@ -6,36 +6,12 @@ import axios from 'axios';
 import { Form, Formik } from 'formik';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useRef } from 'react';
 import { toast } from 'react-toastify';
 import Button from '../Button';
 import InputFormik from '../InputFormik';
 
 const RegistForm = () => {
   const router = useRouter();
-
-  const emailRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-
-      const response = await axios.post('/api/auth/signup', {
-        email: emailRef.current?.value ?? '',
-        name: nameRef.current?.value ?? '',
-        password: passwordRef.current?.value ?? '',
-      });
-
-      if (response.status === 201) {
-        alert('회원가입 성공');
-        router.push('/login');
-      }
-    } catch (error: any) {
-      alert(error.response.data.message);
-    }
-  };
 
   return (
     <div className="flex min-h-screen items-center justify-center">
@@ -68,7 +44,7 @@ const RegistForm = () => {
               });
 
               if (response.status === 201) {
-                toast.success('회원가입 성공');
+                toast.success('회원가입 성공! 이메일 인증을 해주세요.');
                 resetForm();
                 router.push('/login');
               }

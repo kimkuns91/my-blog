@@ -4,6 +4,7 @@ import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
+import { FaGithub } from 'react-icons/fa';
 import { MdEmail, MdKey } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import Button from '../Button';
@@ -62,6 +63,15 @@ const LoginForm = () => {
             alt="kakaoIcon"
           />
           카카오로 1초 만에 시작하기
+        </button>
+      </div>
+      <div className="mt-2">
+        <button
+          className="flex w-full flex-row items-center justify-center gap-3 rounded-md bg-[#b9b9b9] px-5 py-3 font-medium text-slate-900"
+          onClick={() => signIn('github', { redirect: true, callbackUrl: '/' })}
+        >
+          <FaGithub className="text-xl" />
+          Sign in with GitHub
         </button>
       </div>
       <div>

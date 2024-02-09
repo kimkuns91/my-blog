@@ -108,3 +108,40 @@ export const handlePostPublished = async (postId: string) => {
     throw error;
   }
 };
+
+// 유저 이메일 검증
+export const verifyEmail = async (userId: string) => {
+  try {
+    if (!isValidObjectId(userId)) {
+      return null; //
+    }
+    
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) {
+      return { status: 'not_found' };
+    }
+
+    if (user.emailVerified) {
+      return { status: 'already_verified' };
+    }
+
+    const result = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        emailVerified: new Date(),
+      },
+    });
+
+    return { status: 'verified', result }
+  } catch (error) {
+    console.error('Error handlePostPublished Function:', error);
+    throw error;
+  }
+};

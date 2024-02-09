@@ -8,27 +8,21 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface ProfileProps {
-  role: string;
   name: string;
   imageUrl: string;
 }
 
-const Profile = () => {
+const Profile: React.FC<ProfileProps> = ({ name, imageUrl }) => {
   const router = useRouter();
+
   const { data: session } = useSession();
   const [role, setRole] = useState<string>('');
-  const [name, setName] = useState<string>('');
-  const [imageUrl, setImageUrl] = useState<string>('');
 
   useEffect(() => {
-    if (session && session.user) {
+    if (session?.user.role) {
       setRole(session.user.role);
-      setName(session.user.name);
-      setImageUrl(session.user.image);
-    } else {
-      signOut();
     }
-  }, [session, session?.user]);
+  }, [session?.user.role]);
 
   return (
     <DropdownMenu.Root>

@@ -1,24 +1,24 @@
 'use client';
 
 import Button from '@/components/Button';
-import IconInput from '@/components/InputIcon';
+import InputIconFormik from '@/components/InputIconFormik';
+import { contactSchema } from '@/libs/validations/signUpSchema';
 import {
-    slideInFromLeft,
-    slideInFromRight,
-    slideInFromTop,
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
 } from '@/utils/motion';
+import axios from 'axios';
+import { Field, Form, Formik } from 'formik';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef } from 'react';
 import { MdEmail, MdPerson, MdPhone } from 'react-icons/md';
-export default function Page() {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const nameRef = useRef<HTMLInputElement>(null);
-  const phoneRef = useRef<HTMLInputElement>(null);
+import { toast } from 'react-toastify';
 
+export default function Page() {
   return (
-    <div className='relative flex min-h-screen w-full items-center justify-center'>
+    <div className="relative flex min-h-screen w-full items-center justify-center">
       <motion.div
         initial="hidden"
         animate="visible"
@@ -32,7 +32,7 @@ export default function Page() {
             Do you have a project you would like to request?
           </p>
         </motion.div>
-        <div className="relative mt-20 flex gap-4">
+        <div className="relative mt-20 flex gap-28">
           <motion.div
             variants={slideInFromLeft(0.8)}
             className="flex flex-[1] flex-col items-center justify-center gap-10"
@@ -65,35 +65,78 @@ export default function Page() {
             </div>
           </motion.div>
           <motion.div variants={slideInFromRight(0.8)} className="flex-[1]">
-            <form action="" className="flex flex-col gap-4">
-              <IconInput
-                icon={<MdEmail />}
-                ref={emailRef}
-                type="text"
-                name="email"
-                placeholder="name@flowbite.com"
-              />
-              <IconInput
-                icon={<MdPerson />}
-                ref={nameRef}
-                type="text"
-                name="name"
-                placeholder="Name"
-              />
-              <IconInput
-                icon={<MdPhone />}
-                ref={nameRef}
-                type="text"
-                name="phone"
-                placeholder="Phone"
-              />
-              <textarea
-                placeholder="Message"
-                rows={4}
-                className="resize-none rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
-              />
-              <Button>Send</Button>
-            </form>
+            <Formik
+              initialValues={{
+                email: '',
+                name: '',
+                phone: '',
+                message: '',
+              }}
+              validationSchema={contactSchema}
+              onSubmit={async (data, { setSubmitting, resetForm }) => {
+                console.log(data);
+                setSubmitting(true);
+                try {
+                  const response = await axios.post('/api/contact', {
+                    email: data.email,
+                    name: data.name,
+                    phone: data.phone,
+                    message: data.message,
+                  });
+
+                  if (response.status === 201) {
+                    toast.success('연락주셔서 감사합니다.');
+                    resetForm();
+                  }
+                } catch (error: any) {
+                  toast.error(
+                    error.response?.data?.message ||
+                      'An unexpected error occurred'
+                  );
+                } finally {
+                  setSubmitting(false);
+                }
+              }}
+            >
+              {({ isSubmitting, errors, touched }) => (
+                <Form className="flex flex-col gap-2">
+                  <InputIconFormik
+                    icon={<MdEmail />}
+                    type="text"
+                    name="email"
+                    touched={touched}
+                    errors={errors}
+                    placeholder="name@flowbite.com"
+                  />
+                  <InputIconFormik
+                    icon={<MdPerson />}
+                    type="text"
+                    name="name"
+                    touched={touched}
+                    errors={errors}
+                    placeholder="Name"
+                  />
+                  <InputIconFormik
+                    icon={<MdPhone />}
+                    type="text"
+                    name="phone"
+                    touched={touched}
+                    errors={errors}
+                    placeholder="Phone"
+                  />
+                  <Field
+                    name="message"
+                    as="textarea"
+                    placeholder="Message"
+                    rows={6}
+                    className="resize-none rounded-lg border border-gray-300 bg-gray-50 p-4 text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  />
+                  <Button type="submit" disabled={isSubmitting}>
+                    Send
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </motion.div>
         </div>
       </motion.div>

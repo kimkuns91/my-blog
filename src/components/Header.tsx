@@ -52,7 +52,7 @@ const Header = () => {
               </Link>
             </>
           ) : (
-            <Profile />
+            <Profile name={session.user.name} imageUrl={session.user.image} />
           )}
         </div>
       </div>

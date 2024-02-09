@@ -4,7 +4,7 @@ import { getPosts } from '@/utils/fetch';
 import { cn } from '@/utils/style';
 import { Post } from '@prisma/client';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import PostCard from './PostCard';
 
@@ -22,7 +22,6 @@ const PostList: React.FC<PostListProps> = ({
   posts: initalPosts,
 }) => {
   const { ref, inView } = useInView();
-  const [loading, setLoading] = useState(false);
 
   const {
     data: postPages,
@@ -62,16 +61,8 @@ const PostList: React.FC<PostListProps> = ({
   });
 
   useEffect(() => {
-    const fetchNext = async () => {
-      if (inView && hasNextPage && !loading) {
-        setLoading(true);
-        await fetchNextPage();
-        setLoading(false);
-      }
-    };
-
-    fetchNext();
-  }, [inView, hasNextPage, fetchNextPage, loading]);
+    if (inView && hasNextPage) fetchNextPage();
+  }, [inView, hasNextPage, fetchNextPage]);
 
   console.log('postPages : ', postPages?.pages);
   return (
@@ -93,7 +84,6 @@ const PostList: React.FC<PostListProps> = ({
             />
           ))}
       </div>
-      {loading && <p>Loading more posts...</p>}
       <div ref={ref} />
     </div>
   );

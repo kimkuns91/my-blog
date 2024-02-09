@@ -1,3 +1,4 @@
+import { verifyEmail } from '@/libs/nodemailer';
 import prisma from '@/libs/prisma';
 import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
@@ -10,9 +11,9 @@ export async function POST(request: Request) {
 
     const user = await prisma.user.findUnique({
       where: {
-        email
-      }
-    })
+        email,
+      },
+    });
     // console.log('user :', user)
     if (user) {
       return NextResponse.json(
@@ -26,16 +27,20 @@ export async function POST(request: Request) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
-    
-    await prisma.user.create(
-      {
-        data: {
-          email,
-          name,
-          password: hashedPassword,
-        }
-      }
-    )
+
+    const newUser = await prisma.user.create({
+      data: {
+        email,
+        name,
+        password: hashedPassword,
+      },
+    });
+
+    verifyEmail({
+      email: newUser.email,
+      id: newUser.id,
+    });
+
     return NextResponse.json(
       {
         message: '회원가입이 완료되었습니다.',
