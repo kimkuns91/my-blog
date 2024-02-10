@@ -67,6 +67,7 @@ const HeroContent = () => {
           width={600}
           height={600}
           className="upAndDown"
+          priority
         />
       </motion.div>
     </motion.div>
