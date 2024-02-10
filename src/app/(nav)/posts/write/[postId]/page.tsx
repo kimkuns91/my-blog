@@ -7,6 +7,7 @@ import { useCategories, useTags } from '@/utils/hooks';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import type { MultiValue } from 'react-select';
@@ -40,6 +41,7 @@ export default function Page({ params }: PostPageParams) {
   const [category, setCategory] = useState('');
   const [tags, setTags] = useState<{ label: string; value: string }[]>([]);
   const [content, setContent] = useState('');
+  const [previewImageUrl, setPreviewImageUrl] = useState('');
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -101,6 +103,7 @@ export default function Page({ params }: PostPageParams) {
           }
           // content 상태 설정
           setContent(data.content || '');
+          setPreviewImageUrl(data.previewImageUrl || '');
         }
       } catch (error) {
       } finally {
@@ -117,6 +120,17 @@ export default function Page({ params }: PostPageParams) {
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col gap-3 text-black">
           <Input type="text" placeholder="제목" ref={titleRef} />
+          {previewImageUrl && (
+            <div className="flex flex-col gap-4">
+              <h2 className="text-xl text-white">현재 미리보기 이미지</h2>
+              <Image
+                src={previewImageUrl}
+                alt="Preview"
+                width={300}
+                height={300}
+              />
+            </div>
+          )}
           <Input
             type="file"
             accept="image/*"

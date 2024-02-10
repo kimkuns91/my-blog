@@ -2,26 +2,16 @@ import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SessionProvider from '@/components/SessionProvider';
 import StarsCanvas from '@/components/StarBackground';
+import '@/styles/fonts.css';
+import '@/styles/globals.css';
 import ReactQueryProviders from '@/utils/react-query-provider';
 import { cn } from '@/utils/style';
 import '@radix-ui/themes/styles.css';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
-import { Montserrat, Noto_Sans_KR } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './globals.css';
-
-const notoSansKr = Noto_Sans_KR({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
-const montserratEn = Montserrat({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  variable: '--montserrat',
-});
 
 export const metadata: Metadata = {
   title: 'White Mouse Dev',
@@ -42,9 +32,7 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'scrollbar flex bg-slate-950 text-sm text-slate-50 lg:text-base',
-          notoSansKr.className,
-          montserratEn.variable
+          'scrollbar flex bg-slate-950 text-sm text-slate-50 lg:text-base'
         )}
       >
         <SessionProvider session={session}>

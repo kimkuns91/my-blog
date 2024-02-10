@@ -2,7 +2,6 @@
 
 import { handlePostPublished } from '@/utils/fetch';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -13,15 +12,18 @@ interface PostControlBarProps {
   postId: string;
   published: boolean;
   userId: string;
+  sessionId?: string;
+  sessionRole?: string;
 }
 
 const PostControlBar: React.FC<PostControlBarProps> = ({
   postId,
   published: initialPublished,
   userId,
+  sessionId,
+  sessionRole,
 }) => {
   const router = useRouter();
-  const { data: session } = useSession();
   const [published, setPublished] = useState(initialPublished);
   const handleDelete = async () => {
     if (window.confirm('해당 글을 삭제하시겠습니까?')) {
@@ -63,7 +65,7 @@ const PostControlBar: React.FC<PostControlBarProps> = ({
           <FaShareAlt />
         </button>
       </div>
-      {session && session.user.id === userId && (
+      {sessionRole === 'ADMIN' && sessionId === userId && (
         <div className="flex w-full items-center justify-end gap-4">
           <Link
             href={`/posts/write/${postId}`}

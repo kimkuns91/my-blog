@@ -3,11 +3,12 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 import { FC } from 'react';
 import PostControlBar from './PostControlBar';
-interface PostDocProps {
-  post: Post;
-}
+type PostDocProps = Post & {
+  sessionId?: string;
+  sessionRole?: string;
+};
 
-const PostDoc: FC<Post> = ({
+const PostDoc: FC<PostDocProps> = ({
   id,
   title,
   category,
@@ -16,6 +17,8 @@ const PostDoc: FC<Post> = ({
   createdAt,
   published,
   userId,
+  sessionId,
+  sessionRole,
 }) => {
   return (
     <div className="container z-10 flex min-h-screen flex-col gap-8 py-40">
@@ -48,7 +51,13 @@ const PostDoc: FC<Post> = ({
           </div>
         </div>
       </div>
-      <PostControlBar postId={id} published={published} userId={userId} />
+      <PostControlBar
+        postId={id}
+        published={published}
+        userId={userId}
+        sessionId={sessionId}
+        sessionRole={sessionRole}
+      />
       <div
         /* eslint-disable-next-line */
         className="quill-content py-20"

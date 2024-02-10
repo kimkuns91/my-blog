@@ -1,0 +1,132 @@
+
+/* Filson Pro Black */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProBlack.otf') format('opentype');
+  font-weight: 900; /* Custom weight for Black */
+  font-style: normal;
+}
+
+/* Filson Pro Black Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProBlackItalic.otf') format('opentype');
+  font-weight: 900; /* Matching custom weight */
+  font-style: italic;
+}
+
+/* Repeat the pattern for each style */
+/* Filson Pro Bold */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProBold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+/* Filson Pro Bold Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProBoldItalic.otf') format('opentype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* Filson Pro Book */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProBook.otf') format('opentype');
+  font-weight: normal; /* Adjust as needed */
+  font-style: normal;
+}
+
+/* Filson Pro Book Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProBookItalic.otf') format('opentype');
+  font-weight: normal; /* Adjust as needed */
+  font-style: italic;
+}
+
+/* Filson Pro Heavy */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProHeavy.otf') format('opentype');
+  font-weight: 800; /* Custom weight for Heavy */
+  font-style: normal;
+}
+
+/* Filson Pro Heavy Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProHeavyItalic.otf') format('opentype');
+  font-weight: 800; /* Matching custom weight */
+  font-style: italic;
+}
+
+/* Filson Pro Light */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProLight.otf') format('opentype');
+  font-weight: 300; /* Custom weight for Light */
+  font-style: normal;
+}
+
+/* Filson Pro Light Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProLightItalic.otf') format('opentype');
+  font-weight: 300; /* Matching custom weight */
+  font-style: italic;
+}
+
+/* Filson Pro Medium */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProMedium.otf') format('opentype');
+  font-weight: 500; /* Custom weight for Medium */
+  font-style: normal;
+}
+
+/* Filson Pro Medium Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProMediumItalic.otf') format('opentype');
+  font-weight: 500; /* Matching custom weight */
+  font-style: italic;
+}
+
+/* Filson Pro Regular */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProRegular.otf') format('opentype');
+  font-weight: 400; /* Standard weight for Regular */
+  font-style: normal;
+}
+
+/* Filson Pro Regular Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProRegularItalic.otf') format('opentype');
+  font-weight: 400; /* Matching standard weight */
+  font-style: italic;
+}
+
+/* Filson Pro Thin */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProThin.otf') format('opentype');
+  font-weight: 100; /* Custom weight for Thin */
+  font-style: normal;
+}
+
+/* Filson Pro Thin Italic */
+@font-face {
+  font-family: 'Filson Pro';
+  src: url('/fonts/FilsonPro/FilsonProThinItalic.otf') format('opentype');
+  font-weight: 100; /* Matching custom weight */
+  font-style: italic;
+}
+
+body {
+  font-family: 'Filson Pro', sans-serif;
+}

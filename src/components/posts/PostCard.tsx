@@ -11,6 +11,7 @@ interface PostCardProps {
   category: string;
   tags: string[];
   className?: string;
+  published: boolean;
 }
 
 const PostCard: FC<PostCardProps> = ({
@@ -20,12 +21,14 @@ const PostCard: FC<PostCardProps> = ({
   category,
   tags,
   className,
+  published,
 }) => {
   return (
     <Link
       href={`/posts/${id}`}
       className={cn(
         'max-w-sm overflow-hidden rounded border border-slate-700 bg-[#030014] transition-all hover:shadow-2xl hover:shadow-[#9C5CF4]/50',
+        `${!published && 'border-4 border-red-500'}`,
         className
       )}
     >

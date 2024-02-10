@@ -2,25 +2,31 @@
 
 import prisma from '@/libs/prisma';
 import { Prisma } from '@prisma/client';
+import { cache } from 'react';
 
 const isValidObjectId = (id: string): boolean => /^[0-9a-fA-F]{24}$/.test(id);
 
 // 모든 Posts 자료 6개씩 가져오기
-export const getPosts = async ({
+export const getPosts = cache(async ({
   category,
   tag,
   page = 0,
+  role,
 }: {
   category?: string;
   tag?: string;
   page?: number;
+  role?: string;
 }) => {
   try {
     let whereClause: Prisma.PostWhereInput = {};
 
+    console.log('getPosts Role : ', role);
     if (category) whereClause.category = category;
     if (tag) whereClause.tags = { has: tag };
-
+    if (role !== 'ADMIN') {
+      whereClause.published = true;
+    }
     // page 매개변수를 안전하게 처리
     const posts = await prisma.post.findMany({
       where: whereClause,
@@ -37,10 +43,10 @@ export const getPosts = async ({
     // 여기서 적절한 오류 처리 또는 사용자 정의 오류 반환
     throw new Error('Fetching posts failed');
   }
-};
+});
 
 // postId로 Post 자료 가져오기
-export const getPost = async (postId: string) => {
+export const getPost = cache(async (postId: string) => {
   if (!isValidObjectId(postId)) {
     return null; //
   }
@@ -54,10 +60,10 @@ export const getPost = async (postId: string) => {
   if (!post) return null;
 
   return post;
-};
+});
 
 // 모든 Tags 가져오기
-export const getTags = async () => {
+export const getTags = cache(async () => {
   try {
     const tags = await prisma.tags.findMany();
 
@@ -68,10 +74,10 @@ export const getTags = async () => {
     console.error('Error getTags Function :', error);
     throw error;
   }
-};
+});
 
 // 모든 Categories 가져오기
-export const getCategories = async () => {
+export const getCategories = cache(async () => {
   try {
     const categories = await prisma.categories.findMany();
     if (!categories) return [];
@@ -81,7 +87,7 @@ export const getCategories = async () => {
     console.error('Error getCategories Function :', error);
     throw error;
   }
-};
+});
 
 // Post의 노출 여부 변경하기
 export const handlePostPublished = async (postId: string) => {
@@ -115,7 +121,7 @@ export const verifyEmail = async (userId: string) => {
     if (!isValidObjectId(userId)) {
       return null; //
     }
-    
+
     const user = await prisma.user.findUnique({
       where: {
         id: userId,
@@ -139,7 +145,7 @@ export const verifyEmail = async (userId: string) => {
       },
     });
 
-    return { status: 'verified', result }
+    return { status: 'verified', result };
   } catch (error) {
     console.error('Error handlePostPublished Function:', error);
     throw error;

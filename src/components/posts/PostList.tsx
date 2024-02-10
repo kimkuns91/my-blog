@@ -13,6 +13,7 @@ type PostListProps = {
   tag?: string;
   className?: string;
   posts?: Post[];
+  role?: string;
 };
 
 const PostList: React.FC<PostListProps> = ({
@@ -20,20 +21,22 @@ const PostList: React.FC<PostListProps> = ({
   tag,
   className,
   posts: initalPosts,
+  role,
 }) => {
   const { ref, inView } = useInView();
-
+  console.log('Role : ', role);
   const {
     data: postPages,
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['posts', category, tag],
+    queryKey: ['posts', category, tag, role],
     queryFn: async ({ pageParam }) => {
       const posts = await getPosts({
         category,
         tag,
         page: pageParam,
+        role,
       });
       if (!posts)
         return {
@@ -81,6 +84,7 @@ const PostList: React.FC<PostListProps> = ({
               previewImageUrl={post.previewImageUrl}
               category={post.category}
               tags={post.tags}
+              published={post.published}
             />
           ))}
       </div>

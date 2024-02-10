@@ -1,10 +1,9 @@
 'use client';
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { signOut, useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 interface ProfileProps {
@@ -14,15 +13,6 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ name, imageUrl }) => {
   const router = useRouter();
-
-  const { data: session } = useSession();
-  const [role, setRole] = useState<string>('');
-
-  useEffect(() => {
-    if (session?.user.role) {
-      setRole(session.user.role);
-    }
-  }, [session?.user.role]);
 
   return (
     <DropdownMenu.Root>
@@ -51,26 +41,7 @@ const Profile: React.FC<ProfileProps> = ({ name, imageUrl }) => {
             {name} 님
           </DropdownMenu.Label>
           <DropdownMenu.Separator className="m-[5px] h-[1px] border border-slate-400" />
-          {role === 'ADMIN' && (
-            <>
-              <DropdownMenu.Item
-                onClick={() => {
-                  router.push('/dashboard');
-                }}
-                className="group relative flex h-[25px] cursor-pointer select-none items-center rounded-[3px] px-[5px] pl-[10px] text-[13px] leading-none outline-none hover:bg-slate-200"
-              >
-                대시보드
-              </DropdownMenu.Item>
-              <DropdownMenu.Item
-                onClick={() => {
-                  router.push('/posts/write');
-                }}
-                className="group relative flex h-[25px] cursor-pointer select-none items-center rounded-[3px] px-[5px] pl-[10px] text-[13px] leading-none outline-none hover:bg-slate-200"
-              >
-                게시물 글쓰기
-              </DropdownMenu.Item>
-            </>
-          )}
+
           <DropdownMenu.Item
             onClick={() => {
               router.push('/mypage');
