@@ -11,7 +11,7 @@ const SkillText = () => {
       <motion.div
         variants={slideInFromTop}
       >
-        <h1 className="bg-gradient-to-l from-[#6AB6EF] to-[#C1E1A1] bg-clip-text font-En text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-l from-[#6AB6EF] to-[#C1E1A1] bg-clip-text text-6xl font-bold text-transparent">
           My Skills
         </h1>
       </motion.div>

@@ -17,7 +17,7 @@ const Hero = () => {
     >
       <div className="m-auto flex size-full flex-col justify-center gap-5 text-start">
         <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
+          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-6xl font-bold text-transparent">
             About Me
           </h1>
         </motion.div>
