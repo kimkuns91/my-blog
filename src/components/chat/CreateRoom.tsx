@@ -30,7 +30,9 @@ const CreateRoom: React.FC<CreateRoomProps> = ({
   };
 
   return (
-    <div className="fixed left-0 top-0 z-50 h-screen w-full bg-stone-950/90">
+    <div className="fixed left-0 top-0 z-50 h-screen w-full cursor-pointer bg-stone-950/90" onClick={()=>{
+      setCreateRoomMode(false)
+    }}>
       <div className="flex size-full items-center justify-center gap-8">
         <div
           onClick={() => {

@@ -57,10 +57,10 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ session }) => {
             Chat With AI
           </h1>
         </motion.div>
-        <div className="mt-20 flex min-h-0 flex-1 gap-4">
+        <div className="mt-10 flex min-h-0 flex-1 gap-4">
           <motion.div
             variants={slideInFromLeft(0.8)}
-            className="flex min-w-[200px] flex-col gap-10 rounded-md border border-slate-500 bg-slate-600/30"
+            className="flex w-[300px] flex-col gap-10 rounded-md border border-slate-500 bg-slate-600/30"
           >
             <ChatSideBar
               rooms={rooms}
