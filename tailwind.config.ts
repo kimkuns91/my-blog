@@ -12,8 +12,8 @@ const config: Config = {
       md: "768px",
       lg: "1024px",
       xl: "1280px",
-      "2xl": "1536px",
-      "3xl": "1920px",
+      // "2xl": "1536px",
+      // "3xl": "1920px",
     },
     extend: {
       backgroundImage: {
@@ -29,7 +29,7 @@ const config: Config = {
         sm: "2rem",
         lg: "4rem",
         xl: "5rem",
-        "2xl": "6rem",
+        // "2xl": "6rem",
       },
     },
   },
