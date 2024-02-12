@@ -1,3 +1,4 @@
+import BigBang from '@/components/BigBang';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SessionProvider from '@/components/SessionProvider';
@@ -51,6 +52,7 @@ export default async function RootLayout({
                 />
               </main>
               <StarsCanvas />
+              <BigBang />
               <Footer />
             </div>
           </div>
