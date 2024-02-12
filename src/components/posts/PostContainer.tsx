@@ -1,9 +1,9 @@
 'use client';
 
 import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
+    slideInFromLeft,
+    slideInFromRight,
+    slideInFromTop,
 } from '@/utils/motion';
 import { Post } from '@prisma/client';
 import { motion } from 'framer-motion';
@@ -32,7 +32,7 @@ const PostContainer: React.FC<PostContainerProps> = ({
       className="container relative z-[20] flex min-h-screen w-full flex-col items-center gap-2 py-40"
     >
       <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text  text-6xl font-bold text-transparent">
           Posts {category && `# ${category}`} {tag && `# ${tag}`}
         </h1>
       </motion.div>

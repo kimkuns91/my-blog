@@ -5,6 +5,12 @@ import { useMemo, useRef } from 'react';
 import { supabase } from '@/libs/supabase';
 import { ImageActions } from '@xeger/quill-image-actions';
 import { ImageFormats } from '@xeger/quill-image-formats';
+import hljs from 'highlight.js';
+import c from "highlight.js/lib/languages/c";
+import javascript from "highlight.js/lib/languages/javascript";
+import python from "highlight.js/lib/languages/python";
+import typescript from "highlight.js/lib/languages/typescript";
+import 'highlight.js/styles/github.css';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +22,10 @@ interface QuillEditorProps {
   setContent: (char: string) => void;
 }
 
+hljs.registerLanguage("javascript", javascript);
+hljs.registerLanguage("python", python);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("c", c);
 const formats = [
   'font',
   'size',
@@ -38,6 +48,7 @@ const formats = [
   'float',
   'height',
   'width',
+  'code-block'
 ];
 
 const Size = Quill.import('formats/size');
@@ -93,6 +104,9 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
     return {
       imageActions: {},
       imageFormats: {},
+      syntax: {
+        highlight: (text: any) => hljs.highlightAuto(text).value,
+      },
       toolbar: {
         container: [
           [{ font: [] }],
@@ -111,6 +125,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
             { indent: '-1' },
             { indent: '+1' },
           ],
+          ['code-block'],
           [{ color: [] }, { background: [] }],
           ['link', 'image', 'video', 'formula'],
           ['clean'],
@@ -120,12 +135,11 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
         },
       },
       clipboard: {
-        // toggle to add extra line breaks when pasting HTML:
         matchVisual: false,
       },
     };
   }, []);
-
+  
   return (
     <div>
       <ReactQuill
@@ -138,6 +152,9 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
         placeholder={'내용을 입력해주세요.'}
         defaultValue={content}
         value={content}
+        // onChange={(content, delta, source, editor) =>
+        //   setContent(editor.getHTML())
+        // }
         onChange={(value) => setContent(value)}
         modules={modules}
         formats={formats}

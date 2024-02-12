@@ -21,7 +21,7 @@ export default function Page() {
           height={200}
         />
       </div>
-      <h2 className="mt-8 bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text py-8 text-center font-En text-4xl font-bold leading-8 text-transparent lg:text-[80px]">
+      <h2 className="mt-8 bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text py-8 text-center  text-4xl font-bold leading-8 text-transparent lg:text-[80px]">
         Unauthorized
       </h2>
       <p className="mb-8 bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-lg font-bold text-transparent">

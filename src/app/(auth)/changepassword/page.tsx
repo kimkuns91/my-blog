@@ -17,7 +17,7 @@ export default function Page() {
         variants={slideInFromTop}
         className="mx-auto flex min-h-screen w-full max-w-[330px] flex-col justify-center gap-10"
       >
-        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-6xl font-bold text-transparent">
           Find Password
         </h1>
         <Formik

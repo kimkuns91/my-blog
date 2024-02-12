@@ -18,10 +18,10 @@ const RegistForm = () => {
       <motion.div
         initial="hidden"
         animate="visible"
-        className="z-[20] mx-auto  flex w-full max-w-[330px] flex-col gap-8 font-En"
+        className="z-[20] mx-auto  flex w-full max-w-[330px] flex-col gap-8 "
       >
         <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text py-4 font-En text-6xl font-bold text-transparent">
+          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text py-4  text-6xl font-bold text-transparent">
             Sign Up
           </h1>
         </motion.div>

@@ -7,43 +7,45 @@ import { cache } from 'react';
 const isValidObjectId = (id: string): boolean => /^[0-9a-fA-F]{24}$/.test(id);
 
 // 모든 Posts 자료 6개씩 가져오기
-export const getPosts = cache(async ({
-  category,
-  tag,
-  page = 0,
-  role,
-}: {
-  category?: string;
-  tag?: string;
-  page?: number;
-  role?: string;
-}) => {
-  try {
-    let whereClause: Prisma.PostWhereInput = {};
+export const getPosts = cache(
+  async ({
+    category,
+    tag,
+    page = 0,
+    role,
+  }: {
+    category?: string;
+    tag?: string;
+    page?: number;
+    role?: string;
+  }) => {
+    try {
+      let whereClause: Prisma.PostWhereInput = {};
 
-    console.log('getPosts Role : ', role);
-    if (category) whereClause.category = category;
-    if (tag) whereClause.tags = { has: tag };
-    if (role !== 'ADMIN') {
-      whereClause.published = true;
+      console.log('getPosts Role : ', role);
+      if (category) whereClause.category = category;
+      if (tag) whereClause.tags = { has: tag };
+      if (role !== 'ADMIN') {
+        whereClause.published = true;
+      }
+      // page 매개변수를 안전하게 처리
+      const posts = await prisma.post.findMany({
+        where: whereClause,
+        orderBy: {
+          createdAt: 'desc',
+        },
+        skip: page * 6,
+        take: 6,
+      });
+
+      return posts;
+    } catch (error) {
+      console.error('Error getPost Function :', error);
+      // 여기서 적절한 오류 처리 또는 사용자 정의 오류 반환
+      throw new Error('Fetching posts failed');
     }
-    // page 매개변수를 안전하게 처리
-    const posts = await prisma.post.findMany({
-      where: whereClause,
-      orderBy: {
-        createdAt: 'desc',
-      },
-      skip: page * 6,
-      take: 6,
-    });
-
-    return posts;
-  } catch (error) {
-    console.error('Error getPost Function :', error);
-    // 여기서 적절한 오류 처리 또는 사용자 정의 오류 반환
-    throw new Error('Fetching posts failed');
   }
-});
+);
 
 // postId로 Post 자료 가져오기
 export const getPost = cache(async (postId: string) => {
@@ -146,6 +148,31 @@ export const verifyEmail = async (userId: string) => {
     });
 
     return { status: 'verified', result };
+  } catch (error) {
+    console.error('Error handlePostPublished Function:', error);
+    throw error;
+  }
+};
+
+// 비밀번호 변경
+export const verifyChangepassword = async (id: string) => {
+  try {
+    if (!isValidObjectId(id)) {
+      return null; //
+    }
+
+    const result = await prisma.changepassword.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!result) {
+      return null;
+    }
+
+    return result.userId;
+    
   } catch (error) {
     console.error('Error handlePostPublished Function:', error);
     throw error;

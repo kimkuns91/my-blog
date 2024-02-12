@@ -4,9 +4,9 @@ import Button from '@/components/Button';
 import InputIconFormik from '@/components/InputIconFormik';
 import { contactSchema } from '@/libs/validations/signUpSchema';
 import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
+    slideInFromLeft,
+    slideInFromRight,
+    slideInFromTop,
 } from '@/utils/motion';
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
@@ -22,10 +22,10 @@ export default function Page() {
       <motion.div
         initial="hidden"
         animate="visible"
-        className="container relative z-[20] flex w-full flex-col font-En"
+        className="container relative z-[20] flex w-full flex-col "
       >
         <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
+          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text  text-6xl font-bold text-transparent">
             Contact
           </h1>
           <p className="mt-8 text-2xl font-semibold">
@@ -47,7 +47,7 @@ export default function Page() {
               />
             </div>
             <div className="flex gap-8">
-              <div className="flex items-center gap-2 font-En text-lg">
+              <div className="flex items-center gap-2  text-lg">
                 <MdEmail className="text-gray-500 dark:text-gray-400" />
                 <Link
                   href={`mailto:kimkuns98@gmail.com`}
@@ -56,7 +56,7 @@ export default function Page() {
                   kimkuns98@gmail.com
                 </Link>
               </div>
-              <div className="flex items-center gap-2 font-En text-lg">
+              <div className="flex items-center gap-2  text-lg">
                 <MdPhone className="text-gray-500 dark:text-gray-400" />
                 <Link href={`tel:01085959869`} className="hover:underline">
                   01085959869

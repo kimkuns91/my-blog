@@ -11,7 +11,7 @@ const PostSideBar: React.FC = () => {
   return (
     <div className="flex flex-col items-start gap-4 pt-20">
       <Link
-        className="mb-3 flex items-center gap-2 font-En text-2xl font-bold text-slate-200"
+        className="mb-3 flex items-center gap-2  text-2xl font-bold text-slate-200"
         href={'/posts'}
       >
         <MdHome />
@@ -21,7 +21,7 @@ const PostSideBar: React.FC = () => {
       </Link>
       {existingCategories?.map((category, index) => (
         <Link
-          className="flex items-center gap-2 font-En text-xl font-semibold text-slate-300"
+          className="flex items-center gap-2  text-xl font-semibold text-slate-300"
           key={index}
           href={`/posts?category=${category}`}
         >

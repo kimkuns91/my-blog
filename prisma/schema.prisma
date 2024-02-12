@@ -21,6 +21,7 @@ model User {
   posts           Post[]
   likes           Like[]
   comments        Comment[]
+  aichatrooms     AiChatRoom[]
   @@map("users")
 }
 
@@ -82,12 +83,42 @@ model VerificationToken {
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
+model AiChatRoom {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  userId     String   @db.ObjectId// 참여자의 ID 목록
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @default(now()) // 마지막으로 업데이트된 시간
+  mode       String
 
+  user      User     @relation(fields: [userId], references: [id])
+  messages  AiChatMessage[] // 해당 대화방의 메시지 목록
+
+  @@map("aichatrooms")
+}
+model AiChatMessage {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  content   String
+  role      String
+  roomId    String   @db.ObjectId // 메시지가 속한 대화방의 ID
+  createdAt DateTime @default(now())
+
+  room      AiChatRoom     @relation(fields: [roomId], references: [id]) // 속한 대화방
+
+  @@map("aichatmessages")
+}
 model Categories {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId
   category        String      @unique    
   createdAt       DateTime    @default(now())
   @@map("categories")
+}
+model Changepassword {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  userId          String      @db.ObjectId 
+  createdAt       DateTime    @default(now())
+
+  @@map("changepassword")
 }
 model Tags {
   id              String      @id @default(auto()) @map("_id") @db.ObjectId

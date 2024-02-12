@@ -27,7 +27,7 @@ const Header = () => {
         <div className="hidden flex-1 items-center justify-between gap-4 rounded-full bg-[#0300145e] px-10 py-4 lg:flex">
           {NavMenu.map((menu, index) => (
             <Link
-              className="font-En text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
+              className=" text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
               href={menu.url}
               key={index}
             >
@@ -39,13 +39,13 @@ const Header = () => {
           {!session ? (
             <>
               <Link
-                className="font-En text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
+                className=" text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
                 href={'/login'}
               >
                 Login
               </Link>
               <Link
-                className="font-En text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
+                className=" text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
                 href={'/regist'}
               >
                 Sign Up

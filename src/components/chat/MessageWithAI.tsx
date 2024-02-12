@@ -2,20 +2,19 @@ import { cn } from '@/utils/style';
 import Image from 'next/image';
 
 interface MessageWithAIProps {
-  key: string;
   role: string;
   content: string;
   userImg?: string;
+  mode: string;
 }
 const MessageWithAI: React.FC<MessageWithAIProps> = ({
-  key,
   role,
   content,
   userImg = '/images/noUser.png',
+  mode,
 }) => {
   return (
     <div
-      key={key}
       className={cn(
         'flex items-start gap-4',
         `${role === 'assistant' ? 'justify-start' : 'justify-end'}`
@@ -24,7 +23,11 @@ const MessageWithAI: React.FC<MessageWithAIProps> = ({
       {role === 'assistant' && (
         <div className="relative size-16 overflow-hidden rounded-full border-2 border-pink-300 shadow-lg">
           <Image
-            src={'/images/WhiteMouseAI.png'}
+            src={
+              mode === 'Black Mouse'
+                ? '/images/WhiteMouseAI.png'
+                : '/images/ContactImg.webp'
+            }
             alt="WhiteMouseAI"
             className="object-cover"
             sizes="64px"

@@ -1,4 +1,5 @@
 import prisma from '@/libs/prisma';
+import bcrypt from 'bcryptjs';
 import { NextResponse } from 'next/server';
 
 function isValidObjectId(id: string) {
@@ -8,7 +9,7 @@ function isValidObjectId(id: string) {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { userId, password } = body;
+    const { id, userId, password } = body;
 
     if (!isValidObjectId(userId)) {
       return NextResponse.json({ message: 'Invalid path' });
@@ -24,12 +25,20 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: 'Not_found' });
     }
 
+    const hashedPassword = await bcrypt.hash(password, 12);
+
     await prisma.user.update({
       where: {
         id: userId,
       },
       data: {
-        password,
+        password : hashedPassword,
+      },
+    });
+
+    await prisma.changepassword.delete({
+      where: {
+        id,
       },
     });
 

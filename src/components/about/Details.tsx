@@ -1,8 +1,8 @@
 'use client';
 import {
-  slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
+    slideInFromLeft,
+    slideInFromRight,
+    slideInFromTop,
 } from '@/utils/motion';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -20,7 +20,7 @@ const Details = () => {
       className="container mt-40 flex w-full flex-col px-20"
     >
       <motion.div variants={slideInFromRight(0.8)} className="opacity-[0.9]">
-        <h1 className="bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-right font-En text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-right  text-6xl font-bold text-transparent">
           Details
         </h1>
       </motion.div>

@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { email } = body;
 
-    console.log('email :', email)
+    console.log('email :', email);
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -26,7 +26,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if(user.provider !== 'credentials') {
+    if (user.provider !== 'credentials') {
       return NextResponse.json(
         {
           message: `${user.provider}으로 가입된 이메일입니다.`,
@@ -37,9 +37,15 @@ export async function POST(request: Request) {
       );
     }
 
+    const result = await prisma.changepassword.create({
+      data: {
+        userId: user.id,
+      },
+    });
+
     await changePassEmail({
       email: user.email,
-      id: user.id,
+      id: result.id,
     });
 
     return NextResponse.json(
@@ -48,7 +54,6 @@ export async function POST(request: Request) {
       },
       { status: 201 }
     );
-    
   } catch (error) {
     if (error instanceof mongoose.Error.ValidationError) {
       return NextResponse.json(

@@ -3,6 +3,8 @@ import { format } from 'date-fns';
 import Link from 'next/link';
 import { FC } from 'react';
 import PostControlBar from './PostControlBar';
+
+
 type PostDocProps = Post & {
   sessionId?: string;
   sessionRole?: string;
@@ -31,7 +33,7 @@ const PostDoc: FC<PostDocProps> = ({
             {category}
           </Link>
         )}
-        <h1 className="bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-center font-En text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-center  text-6xl font-bold text-transparent">
           {title}
         </h1>
         <div className="flex w-full justify-between">

@@ -49,7 +49,7 @@ const LoginForm = () => {
         />
       </div>
       {/* eslint-disable-next-line */}
-      <h2 className="mt-4 text-xl font-En font-bold text-center leading-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+      <h2 className="mt-4 text-xl  font-bold text-center leading-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
         Sign up and take away various programming information.
       </h2>
       <div className="mt-8">
@@ -95,7 +95,7 @@ const LoginForm = () => {
           name="password"
           placeholder="········"
         />
-        <Button type="submit" className="font-En">
+        <Button type="submit" className="">
           Login
         </Button>
       </form>

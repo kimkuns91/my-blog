@@ -11,17 +11,16 @@ import { useRouter } from 'next/navigation';
 import { MdKey } from 'react-icons/md';
 import { toast } from 'react-toastify';
 
-type VerifyEmailProps = {
-  params: {
-    userId: string;
-  };
-};
+interface ChangePasswordFormProps {
+  id: string;
+  userId: string;
+}
 
-export default function Page({ params }: VerifyEmailProps) {
+const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({
+  id,
+  userId,
+}) => {
   const router = useRouter();
-
-  const userId = params.userId;
-
   return (
     <motion.div
       initial="hidden"
@@ -32,7 +31,7 @@ export default function Page({ params }: VerifyEmailProps) {
         variants={slideInFromTop}
         className="mx-auto flex min-h-screen w-full max-w-[330px] flex-col justify-center gap-10"
       >
-        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text font-En text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text  text-6xl font-bold text-transparent">
           Change Password
         </h1>
         <Formik
@@ -45,7 +44,9 @@ export default function Page({ params }: VerifyEmailProps) {
             setSubmitting(true);
             try {
               const response = await axios.post('/api/auth/changepassword', {
+                id,
                 userId,
+                password: data.password,
               });
 
               if (response.status === 201) {
@@ -64,6 +65,7 @@ export default function Page({ params }: VerifyEmailProps) {
         >
           {({ isSubmitting, errors, touched }) => (
             <Form className="z-20 flex flex-col gap-2">
+              <label htmlFor="confirmPassword">Password</label>
               <InputIconFormik
                 icon={<MdKey />}
                 type="password"
@@ -72,6 +74,7 @@ export default function Page({ params }: VerifyEmailProps) {
                 touched={touched}
                 errors={errors}
               />
+              <label htmlFor="confirmPassword">Confirm Password</label>
               <InputIconFormik
                 icon={<MdKey />}
                 type="password"
@@ -89,4 +92,5 @@ export default function Page({ params }: VerifyEmailProps) {
       </motion.div>
     </motion.div>
   );
-}
+};
+export default ChangePasswordForm;
