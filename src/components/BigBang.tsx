@@ -13,7 +13,7 @@ const BigBang = () => {
       setShow(true); 
       setTimeout(() => {
         setOpacity(0);
-      }, 6000);
+      }, 2000);
     }
   }, []);
 

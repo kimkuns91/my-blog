@@ -74,7 +74,9 @@ const Header = () => {
           )}
         </div>
       </div>
-      {sideBarOpen && <Sidebar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>}
+      {sideBarOpen && (
+        <Sidebar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen} />
+      )}
     </header>
   );
 };
