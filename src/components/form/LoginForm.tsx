@@ -39,7 +39,7 @@ const LoginForm = () => {
 
   return (
     /* eslint-disable-next-line */
-    <div className="flex w-full max-w-[330px] mx-auto flex-col gap-4 min-h-screen justify-center z-20">
+    <div className="flex w-full max-w-[330px] mx-auto flex-col gap-4 min-h-screen z-20 py-28 lg:py-40">
       <div className="flex items-center justify-center">
         <Image
           src={'/images/LogoRow.png'}
@@ -49,7 +49,7 @@ const LoginForm = () => {
         />
       </div>
       {/* eslint-disable-next-line */}
-      <h2 className="mt-4 text-xl  font-bold text-center leading-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
+      <h2 className="mt-4 text-xl font-bold text-center leading-8 text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500">
         Sign up and take away various programming information.
       </h2>
       <div className="mt-8">
@@ -80,13 +80,13 @@ const LoginForm = () => {
           또는 이메일로 로그인
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4" action="">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <IconInput
           icon={<MdEmail />}
           ref={emailRef}
           type="text"
           name="email"
-          placeholder="name@flowbite.com"
+          placeholder="mouse@whitemouse.dev"
         />
         <IconInput
           icon={<MdKey />}

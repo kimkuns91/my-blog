@@ -9,8 +9,8 @@ import { useInView } from 'react-intersection-observer';
 import PostCard from './PostCard';
 
 type PostListProps = {
-  category?: string;
-  tag?: string;
+  category?: string | null;
+  tag?: string | null;
   className?: string;
   posts?: Post[];
   role?: string;
@@ -24,7 +24,6 @@ const PostList: React.FC<PostListProps> = ({
   role,
 }) => {
   const { ref, inView } = useInView();
-  console.log('Role : ', role);
   const {
     data: postPages,
     fetchNextPage,
@@ -70,9 +69,19 @@ const PostList: React.FC<PostListProps> = ({
   console.log('postPages : ', postPages?.pages);
   return (
     <div
-      className={cn('z-10 flex flex-col items-center gap-8 pt-20', className)}
+      className={cn(
+        'z-10 flex flex-col items-center gap-8 pt-10',
+        'lg:pt-20',
+        className
+      )}
     >
-      <div className="container grid grid-cols-2 gap-x-4 gap-y-6 pb-24 lg:gap-x-7 lg:gap-y-12">
+      <div
+        className={cn(
+          'container grid grid-cols-1 gap-x-4 gap-y-12 pb-24',
+          'md:grid-cols-2 md:gap-y-6',
+          'lg:grid-cols-3 lg:gap-x-7 lg:gap-y-12'
+        )}
+      >
         {postPages?.pages
           .flatMap((page) => page.posts)
           .map((post) => (

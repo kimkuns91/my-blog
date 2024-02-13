@@ -45,7 +45,7 @@ const PostCard: FC<PostCardProps> = ({
       <div className="px-6 py-4">
         <h2 className="ellipsis mb-2 text-xl font-bold">{title}</h2>
       </div>
-      <div className="px-6 pb-2 pt-4">
+      <div className={cn("hidden px-6 pb-2 pt-4", 'lg:block')}>
         <span className="mb-2 mr-2 inline-block rounded-full bg-gray-400 px-3 py-1 text-sm font-semibold text-gray-700">
           {category}
         </span>

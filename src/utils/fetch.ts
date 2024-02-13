@@ -14,8 +14,8 @@ export const getPosts = cache(
     page = 0,
     role,
   }: {
-    category?: string;
-    tag?: string;
+    category?: string | null;
+    tag?: string | null;
     page?: number;
     role?: string;
   }) => {

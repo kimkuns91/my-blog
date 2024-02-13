@@ -1,9 +1,10 @@
 'use client';
 import {
-    slideInFromLeft,
-    slideInFromRight,
-    slideInFromTop,
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
 } from '@/utils/motion';
+import { cn } from '@/utils/style';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
@@ -17,17 +18,30 @@ const Details = () => {
       initial="hidden"
       variants={slideInFromTop}
       animate={inView ? 'visible' : 'hidden'}
-      className="container mt-40 flex w-full flex-col px-20"
+      className="mt-40 flex w-full flex-col"
     >
       <motion.div variants={slideInFromRight(0.8)} className="opacity-[0.9]">
-        <h1 className="bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-right  text-6xl font-bold text-transparent">
+        <h1
+          className={cn(
+            'bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-6xl font-bold text-transparent',
+            'lg:text-right'
+          )}
+        >
           Details
         </h1>
       </motion.div>
-      <div className="m-auto mt-20 flex size-full flex-row justify-center gap-36 text-start">
+      <div
+        className={cn(
+          'mt-20 flex size-full flex-col justify-center gap-8 text-start',
+          'lg:flex-row lg:gap-36'
+        )}
+      >
         <motion.div
           variants={slideInFromLeft(0.8)}
-          className="mt-6 flex size-auto max-w-[600px] flex-[1] flex-col gap-2 text-2xl font-semibold leading-10 text-white"
+          className={cn(
+            'mt-6 flex size-auto max-w-[600px] flex-[1] flex-col gap-2 text-lg font-semibold leading-10 text-white',
+            'lg:text-2xl'
+          )}
         >
           <div className="flex justify-between">
             <p className="text-slate-200">Name</p>
@@ -61,23 +75,29 @@ const Details = () => {
         </motion.div>
         <motion.div
           variants={slideInFromRight(0.5)}
-          className="mt-6 flex size-auto max-w-[600px] flex-[1] flex-col gap-2 text-2xl font-semibold leading-10 text-white"
+          className={cn(
+            'flex size-auto max-w-[600px] flex-[1] flex-col gap-2 text-lg font-semibold leading-10 text-white',
+            'lg:mt-6 lg:text-2xl'
+          )}
         >
-          <div className="flex flex-col justify-between gap-4">
-            <p className="text-right text-slate-200">Experience</p>
+          <div
+            className={cn(
+              'flex flex-col justify-between gap-4',
+              'lg:text-right'
+            )}
+          >
+            <p className="text-slate-200">Experience</p>
             <div className="flex flex-col gap-4">
-              <p className="text-right text-slate-400">
+              <p className="text-slate-400">
                 Represented South Korea in the League of Legends World
                 Championship <br /> ( 2016-2017 )
               </p>
-              <p className="text-right text-slate-400">Graduated in (2019)</p>
-              <p className="text-right text-slate-400">
-                Game Coach at OGT ( 2019 )
-              </p>
-              <p className="text-right text-slate-400">
+              <p className="text-slate-400">Graduated in (2019)</p>
+              <p className="text-slate-400">Game Coach at OGT ( 2019 )</p>
+              <p className="text-slate-400">
                 Freelance Programmer ( 2019-2021 )
               </p>
-              <p className="text-right text-slate-400">
+              <p className="text-slate-400">
                 Currently serving as CEO of Lyncare Inc. and CTO of Wevibe Inc.
                 ( 2021-present )
               </p>

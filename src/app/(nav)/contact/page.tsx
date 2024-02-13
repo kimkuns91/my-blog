@@ -4,10 +4,11 @@ import Button from '@/components/Button';
 import InputIconFormik from '@/components/InputIconFormik';
 import { contactSchema } from '@/libs/validations/signUpSchema';
 import {
-    slideInFromLeft,
-    slideInFromRight,
-    slideInFromTop,
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
 } from '@/utils/motion';
+import { cn } from '@/utils/style';
 import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
 import { motion } from 'framer-motion';
@@ -35,7 +36,10 @@ export default function Page() {
         <div className="relative mt-20 flex gap-28">
           <motion.div
             variants={slideInFromLeft(0.8)}
-            className="flex flex-[1] flex-col items-center justify-center gap-10"
+            className={cn(
+              'hidden flex-[1] flex-col items-center justify-center gap-10',
+              'lg:flex'
+            )}
           >
             <div className="relative size-[300px] bg-slate-400">
               <Image

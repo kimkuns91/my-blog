@@ -1,18 +1,31 @@
 'use client';
 
 import NavMenu from '@/libs/constants/navMenu';
+import { cn } from '@/utils/style';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
+import { FaBars } from 'react-icons/fa6';
 import Profile from './Profile';
+import Sidebar from './Sidebar';
 
 const Header = () => {
   const { data: session } = useSession();
+  const [sideBarOpen, setSideBarOpen] = useState<boolean>(false);
 
   return (
     <header className="fixed top-0 z-[30] w-full bg-[#03001417] shadow-lg shadow-[#2A0E61]/50 backdrop-blur-md">
       <div className="container flex items-center justify-between py-4">
-        <div className="flex-1">
+        <div className={cn('flex-1', 'lg:hidden')}>
+          <FaBars
+            onClick={() => {
+              setSideBarOpen(true);
+            }}
+            className="text-xl"
+          />
+        </div>
+        <div className={cn('mr-6 flex-[2]', 'lg:mr-0 lg:flex-1')}>
           <Link href={'/'}>
             <Image
               src={'/images/Logo.png'}
@@ -24,7 +37,12 @@ const Header = () => {
             />
           </Link>
         </div>
-        <div className="hidden flex-1 items-center justify-between gap-4 rounded-full bg-[#0300145e] px-10 py-4 lg:flex">
+        <div
+          className={cn(
+            'hidden flex-1 items-center justify-between gap-4 rounded-full bg-[#0300145e] px-10 py-4',
+            'lg:flex'
+          )}
+        >
           {NavMenu.map((menu, index) => (
             <Link
               className=" text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
@@ -56,6 +74,7 @@ const Header = () => {
           )}
         </div>
       </div>
+      {sideBarOpen && <Sidebar sideBarOpen={sideBarOpen} setSideBarOpen={setSideBarOpen}/>}
     </header>
   );
 };

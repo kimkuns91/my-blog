@@ -5,6 +5,7 @@ import {
   slideInFromRight,
   slideInFromTop,
 } from '@/utils/motion';
+import { cn } from '@/utils/style';
 import { SparklesIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -14,9 +15,16 @@ const HeroContent = () => {
     <motion.div
       initial="hidden"
       animate="visible"
-      className="container z-[5] flex w-full flex-col items-center justify-center py-10 lg:mt-40 lg:flex-row"
+      className={cn(
+        'container z-[5] flex w-full flex-col items-center justify-center pt-32',
+        'lg:mt-40 lg:flex-row lg:py-10'
+      )}
     >
-      <div className="m-auto flex size-full flex-col justify-center gap-5 text-start">
+      <div
+        className={cn(
+          'm-auto flex size-full flex-col justify-center gap-5 text-start'
+        )}
+      >
         <motion.div
           variants={slideInFromTop}
           className="Welcome-box border border-[#7042f88b] px-3 py-2 font-bold opacity-[0.9]"
@@ -29,7 +37,10 @@ const HeroContent = () => {
 
         <motion.div
           variants={slideInFromLeft(0.5)}
-          className="mt-6 flex size-auto max-w-[600px] flex-col gap-4 text-6xl font-bold text-white"
+          className={cn(
+            'mt-6 flex size-auto max-w-[600px] flex-col gap-4 text-4xl font-bold text-white',
+            'lg:text-6xl'
+          )}
         >
           <p>
             Providing
@@ -59,7 +70,10 @@ const HeroContent = () => {
 
       <motion.div
         variants={slideInFromRight(0.8)}
-        className="flex size-full items-center justify-end"
+        className={cn(
+          'mt-12 flex size-full items-center justify-end',
+          'lg:mt-0'
+        )}
       >
         <Image
           src="/images/HeroImg.png"

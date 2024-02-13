@@ -4,12 +4,10 @@ import StarsCanvas from '@/components/StarBackground';
 
 export default function Home() {
   return (
-    <div className="size-full">
-      <div className="flex flex-col gap-20">
-        <Hero />
-        <Skills />
-        <StarsCanvas />
-      </div>
+    <div className="flex flex-col gap-20">
+      <Hero />
+      <Skills />
+      <StarsCanvas />
     </div>
   );
 }

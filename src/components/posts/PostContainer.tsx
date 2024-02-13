@@ -1,10 +1,11 @@
 'use client';
 
 import {
-    slideInFromLeft,
-    slideInFromRight,
-    slideInFromTop,
+  slideInFromLeft,
+  slideInFromRight,
+  slideInFromTop,
 } from '@/utils/motion';
+import { cn } from '@/utils/style';
 import { Post } from '@prisma/client';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
@@ -29,15 +30,21 @@ const PostContainer: React.FC<PostContainerProps> = ({
     <motion.div
       initial="hidden"
       animate="visible"
-      className="container relative z-[20] flex min-h-screen w-full flex-col items-center gap-2 py-40"
+      className={cn(
+        'container relative z-20 flex min-h-screen w-full flex-col items-center gap-2 py-28',
+        'lg:py-40'
+      )}
     >
       <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text  text-6xl font-bold text-transparent">
+        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-6xl font-bold text-transparent">
           Posts {category && `# ${category}`} {tag && `# ${tag}`}
         </h1>
       </motion.div>
       <div className="flex w-full">
-        <motion.div variants={slideInFromLeft(0.8)} className="flex-1">
+        <motion.div
+          variants={slideInFromLeft(0.8)}
+          className={cn('hidden', 'lg:block lg:flex-1')}
+        >
           <PostSideBar />
         </motion.div>
         <motion.div variants={slideInFromRight(0.8)} className="flex-[5]">

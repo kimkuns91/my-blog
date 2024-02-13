@@ -5,6 +5,7 @@ import {
   Other_skill,
   Skill_data,
 } from '@/libs/constants/skillsData';
+import { cn } from '@/utils/style';
 import SkillDataProvider from './SkillDataProvider';
 import SkillText from './SkillText';
 
@@ -12,12 +13,15 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative flex h-full flex-col items-center justify-center gap-3 overflow-hidden py-20 pb-80"
-      style={{ transform: 'scale(0.9' }}
+      className="container relative flex h-full flex-col items-center justify-center gap-3 overflow-hidden py-20 pb-80"
     >
       <SkillText />
-
-      <div className="mt-4 flex flex-row flex-wrap items-center justify-around gap-5">
+      <div
+        className={cn(
+          'mt-4 hidden flex-row flex-wrap items-center justify-around gap-5',
+          'lg:flex'
+        )}
+      >
         {Skill_data.map((image, index) => (
           <SkillDataProvider
             key={index}
