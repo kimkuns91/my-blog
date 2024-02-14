@@ -135,3 +135,14 @@
 .no-scrollbar {
   -ms-overflow-style: none;
 }
+.sideBar {
+  animation: sideBar 0.3s ease-in-out;
+}
+@keyframes sideBar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
