@@ -10,7 +10,7 @@ import c from "highlight.js/lib/languages/c";
 import javascript from "highlight.js/lib/languages/javascript";
 import python from "highlight.js/lib/languages/python";
 import typescript from "highlight.js/lib/languages/typescript";
-import 'highlight.js/styles/github.css';
+import 'highlight.js/styles/atom-one-dark.css';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { v4 as uuidv4 } from 'uuid';

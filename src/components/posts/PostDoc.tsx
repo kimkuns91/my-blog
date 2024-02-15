@@ -1,16 +1,18 @@
+'use client';
+
 import { Post } from '@prisma/client';
 import { format } from 'date-fns';
+import 'highlight.js/styles/atom-one-dark.css';
 import Link from 'next/link';
-import { FC } from 'react';
+import { useEffect, useState } from 'react';
 import PostControlBar from './PostControlBar';
-
 
 type PostDocProps = Post & {
   sessionId?: string;
   sessionRole?: string;
 };
 
-const PostDoc: FC<PostDocProps> = ({
+const PostDoc: React.FC<PostDocProps> = ({
   id,
   title,
   category,
@@ -22,6 +24,17 @@ const PostDoc: FC<PostDocProps> = ({
   sessionId,
   sessionRole,
 }) => {
+  const [sanitizedContent, setSanitizedContent] = useState('');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && content) {
+      import('dompurify').then((DOMPurifyModule) => {
+        const sanitize = DOMPurifyModule.default.sanitize;
+        setSanitizedContent(sanitize(content));
+      });
+    }
+  }, [content]);
+
   return (
     <div className="container z-10 flex min-h-screen flex-col gap-8 py-40">
       <div className="flex flex-col items-center gap-8 pt-10">
@@ -61,10 +74,11 @@ const PostDoc: FC<PostDocProps> = ({
         sessionRole={sessionRole}
       />
       <div
-        /* eslint-disable-next-line */
-        className="quill-content py-20"
-        dangerouslySetInnerHTML={{ __html: content }}
-      ></div>
+        className="py-20"
+        dangerouslySetInnerHTML={{
+          __html: sanitizedContent,
+        }}
+      />
     </div>
   );
 };

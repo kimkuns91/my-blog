@@ -89,9 +89,7 @@ export const authOptions: NextAuthOptions = {
 
           // 이미 이메일 인증으로 가입한 경우 에러 처리
           if (db_user && db_user.provider === 'credentials') {
-            throw new Error(
-              '이미 이메일 인증으로 가입된 계정입니다. 해당 계정으로 로그인해주세요.'
-            );
+            return `/auth/error?message=${db_user.provider}`
           }
 
           if (!db_user) {
@@ -126,9 +124,7 @@ export const authOptions: NextAuthOptions = {
 
           // 이미 이메일 인증으로 가입한 경우 에러 처리
           if (db_user && db_user.provider !== 'github') {
-            throw new Error(
-              `${db_user.provider}으로 가입된 계정입니다. 해당 계정으로 로그인해주세요.`
-            );
+            return `/auth/error?message=${db_user.provider}`
           }
 
           if (!db_user) {

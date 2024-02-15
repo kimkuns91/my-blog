@@ -109,7 +109,12 @@ const LoginForm = () => {
         Sign Up with your email
       </Button>
       <div className="flex justify-end">
-        <Link href={'/changepassword'} className='border-b pb-1 transition-all ease-in-out hover:opacity-70'>비밀번호 찾기</Link>
+        <Link
+          href={'/changepassword'}
+          className="border-b pb-1 transition-all ease-in-out hover:opacity-70"
+        >
+          비밀번호 찾기
+        </Link>
       </div>
     </div>
   );

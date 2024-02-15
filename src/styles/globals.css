@@ -25,19 +25,24 @@
 }
 
 @keyframes upDownRotateSmooth {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(0deg);
   }
-  10%, 90% {
+  10%,
+  90% {
     transform: translateY(-5px) rotate(-3deg);
   }
-  20%, 80% {
+  20%,
+  80% {
     transform: translateY(-10px) rotate(3deg);
   }
-  30%, 70% {
+  30%,
+  70% {
     transform: translateY(-5px) rotate(-2deg);
   }
-  40%, 60% {
+  40%,
+  60% {
     transform: translateY(0) rotate(2deg);
   }
   50% {
@@ -145,4 +150,10 @@
   100% {
     transform: translateX(0);
   }
+}
+
+.ql-syntax {
+  border-radius: 1rem;
+  background-color: #191919;
+  padding: 2rem;
 }
