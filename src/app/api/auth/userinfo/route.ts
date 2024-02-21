@@ -1,11 +1,13 @@
-import { getToken } from 'next-auth/jwt';
-import { NextRequest, NextResponse } from 'next/server';
+import { authOptions } from '@/libs/next-auth';
+import { getServerSession } from 'next-auth';
+import { NextResponse } from 'next/server';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const token = await getToken({ req: request });
-
-    console.log(token)
+    const session = getServerSession(authOptions);
+    if (!session) {
+      return NextResponse.json({ message: 'Session 오류' }, { status: 200 });
+    }
     // if (!session) {
     //   return NextResponse.json(
     //     {
