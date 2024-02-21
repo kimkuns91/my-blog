@@ -66,7 +66,6 @@ const PostList: React.FC<PostListProps> = ({
     if (inView && hasNextPage) fetchNextPage();
   }, [inView, hasNextPage, fetchNextPage]);
 
-  console.log('postPages : ', postPages?.pages);
   return (
     <div
       className={cn(
@@ -77,7 +76,7 @@ const PostList: React.FC<PostListProps> = ({
     >
       <div
         className={cn(
-          'container grid grid-cols-1 gap-x-4 gap-y-12 pb-24',
+          'grid min-h-[500px] w-full min-w-[300px] grid-cols-1 gap-x-4 gap-y-12 pb-24', // 여기에 min-w-[값]과 min-h-[값] 추가
           'md:grid-cols-2 md:gap-y-6',
           'lg:grid-cols-3 lg:gap-x-7 lg:gap-y-12'
         )}
@@ -92,6 +91,7 @@ const PostList: React.FC<PostListProps> = ({
               content={post.content}
               previewImageUrl={post.previewImageUrl}
               category={post.category}
+              createdAt={post.createdAt}
               tags={post.tags}
               published={post.published}
             />

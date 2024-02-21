@@ -6,9 +6,10 @@ import {
   slideInFromTop,
 } from '@/utils/motion';
 import { cn } from '@/utils/style';
-import { SparklesIcon } from '@heroicons/react/24/solid';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { GiSeatedMouse } from 'react-icons/gi';
+import { Button } from '../ui/moving-border';
 
 const HeroContent = () => {
   return (
@@ -25,14 +26,11 @@ const HeroContent = () => {
           'm-auto flex size-full flex-col justify-center gap-5 text-start'
         )}
       >
-        <motion.div
-          variants={slideInFromTop}
-          className="Welcome-box border border-[#7042f88b] px-3 py-2 font-bold opacity-[0.9]"
-        >
-          <SparklesIcon className="mr-[10px] size-5 text-[#b49bff]" />
-          <h1 className="Welcome-text text-sm">
-            Fullstack Developer WhiteMouse
-          </h1>
+        <motion.div variants={slideInFromTop}>
+          <div className="relative inline-flex items-center justify-center gap-2 rounded-full border border-[#7042f88b] px-8 py-3 font-bold opacity-[0.9] shadow-lg">
+            <GiSeatedMouse className="text-lg text-[#b49bff]" />
+            <p className='text-[#e2dcf5]'>Fullstack Developer WhiteMouse</p>
+          </div>
         </motion.div>
 
         <motion.div
@@ -44,10 +42,7 @@ const HeroContent = () => {
         >
           <p>
             Providing
-            <span className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-transparent">
-              {' '}
-              The Best
-            </span>
+            <span className="gradientMoveTitle"> The Best</span>
           </p>
           <p>Project Exprience</p>
         </motion.div>
@@ -59,13 +54,9 @@ const HeroContent = () => {
           I&apos;m a Full Stack Software Engineer with experience in Website,
           Mobile, and Software development. Check out my projects and skills.
         </motion.p>
-        <motion.a
-          href="/about"
-          variants={slideInFromLeft(1)}
-          className="button-primary max-w-[200px] cursor-pointer rounded-lg py-2 text-center text-white"
-        >
-          About Me
-        </motion.a>
+        <motion.div variants={slideInFromLeft(1)}>
+          <Button borderRadius="1.75rem">Project Request</Button>
+        </motion.div>
       </div>
 
       <motion.div
@@ -76,11 +67,10 @@ const HeroContent = () => {
         )}
       >
         <Image
-          src="/images/HeroImg.png"
+          src="/images/mainIconsdark.svg"
           alt="work icons"
           width={600}
           height={600}
-          className="upAndDown"
           priority
         />
       </motion.div>

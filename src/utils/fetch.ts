@@ -22,7 +22,6 @@ export const getPosts = cache(
     try {
       let whereClause: Prisma.PostWhereInput = {};
 
-      console.log('getPosts Role : ', role);
       if (category) whereClause.category = category;
       if (tag) whereClause.tags = { has: tag };
       if (role !== 'ADMIN') {

@@ -26,7 +26,7 @@ export default function Page() {
         className="container relative z-[20] flex w-full flex-col "
       >
         <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text  text-6xl font-bold text-transparent">
+          <h1 className="gradientMoveSubtitle text-6xl font-bold">
             Contact
           </h1>
           <p className="mt-8 text-2xl font-semibold">

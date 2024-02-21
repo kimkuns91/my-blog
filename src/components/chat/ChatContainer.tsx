@@ -2,8 +2,7 @@
 
 import {
   slideInFromLeft,
-  slideInFromRight,
-  slideInFromTop,
+  slideInFromRight
 } from '@/utils/motion';
 import axios from 'axios';
 import { motion } from 'framer-motion';
@@ -46,17 +45,12 @@ const ChatContainer: React.FC<ChatContainerProps> = ({ session }) => {
   }, [fetchRooms]);
 
   return (
-    <div className="flex h-screen w-full items-center justify-center py-32">
+    <div className="flex h-screen w-full items-center justify-center px-6 py-20">
       <motion.div
         initial="hidden"
         animate="visible"
-        className="container relative z-[20] flex size-full flex-col"
+        className="relative z-[20] flex size-full flex-col"
       >
-        <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-          <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text  text-6xl font-bold text-transparent">
-            Chat With AI
-          </h1>
-        </motion.div>
         <div className="mt-10 flex min-h-0 flex-1 gap-4">
           <motion.div
             variants={slideInFromLeft(0.8)}

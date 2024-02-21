@@ -23,7 +23,7 @@ const Details = () => {
       <motion.div variants={slideInFromRight(0.8)} className="opacity-[0.9]">
         <h1
           className={cn(
-            'bg-gradient-to-b from-[#48B6F5] to-[#085A8A] bg-clip-text text-6xl font-bold text-transparent',
+            'gradientMoveText text-6xl font-bold',
             'lg:text-right'
           )}
         >

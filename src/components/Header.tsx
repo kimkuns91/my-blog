@@ -45,7 +45,9 @@ const Header = () => {
         >
           {NavMenu.map((menu, index) => (
             <Link
-              className=" text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent"
+              className={cn(
+                'text-xl font-semibold transition-all ease-in-out hover:bg-gradient-to-r hover:from-purple-500 hover:to-cyan-500 hover:bg-clip-text hover:text-transparent'
+              )}
               href={menu.url}
               key={index}
             >

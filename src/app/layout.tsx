@@ -1,4 +1,3 @@
-import BigBang from '@/components/BigBang';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import SessionProvider from '@/components/SessionProvider';
@@ -34,12 +33,13 @@ export default async function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'scrollbar flex bg-slate-950 text-sm text-slate-50 lg:text-base'
+          'scrollbar flex overflow-x-hidden',
+          'bg-slate-950 text-sm text-slate-50',
+          'lg:text-base'
         )}
       >
         <SessionProvider session={session}>
           <div className="flex flex-1 flex-col">
-            <BigBang />
             <Header />
             <div className="flex flex-1 flex-col overflow-y-auto">
               <main className="flex flex-1 flex-col">

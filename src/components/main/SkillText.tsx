@@ -12,14 +12,14 @@ const SkillText = () => {
     <div className="flex h-auto w-full flex-col items-center justify-center">
       <motion.div
         variants={slideInFromTop}
-        className="Welcome-box border border-[#7042f88b] px-3 py-2 font-bold opacity-[0.9]"
+        className="relative inline-flex items-center justify-center gap-2 rounded-full border border-[#7042f88b] px-8 py-3 font-bold opacity-[0.9] shadow-lg"
       >
-        <SparklesIcon className="mr-[10px] size-5 text-[#b49bff]" />
-        <h1 className="Welcome-text text-sm">Fullstack Skills</h1>
+        <SparklesIcon className="size-5 text-[#b49bff]" />
+        <p className='text-[#e2dcf5]'>Fullstack Skills</p>
       </motion.div>
       <motion.div
         variants={slideInFromLeft(0.5)}
-        className="mb-4 mt-3 text-center text-3xl font-medium text-white"
+        className="mb-4 mt-6 text-center text-3xl font-medium text-white"
       >
         Making apps with modern technologies
       </motion.div>

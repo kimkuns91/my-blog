@@ -1,4 +1,10 @@
-import type { Config } from 'tailwindcss';
+const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
+
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
@@ -13,7 +19,6 @@ const config: Config = {
       lg: '1024px',
       xl: '1280px',
       '2xl': '1400px',
-      // "3xl": "1920px",
     },
     extend: {
       backgroundImage: {
@@ -26,13 +31,22 @@ const config: Config = {
       center: true,
       padding: {
         DEFAULT: '1rem',
-        // sm: '2rem',
-        // lg: '4rem',
-        // xl: '5rem',
-        // '2xl': '6rem',
       },
     },
   },
-  plugins: [],
+  plugins: [addVariablesForColors],
 };
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+
+  addBase({
+    ":root": newVars,
+  });
+}
+
+
 export default config;

@@ -36,7 +36,7 @@ const PostContainer: React.FC<PostContainerProps> = ({
       )}
     >
       <motion.div variants={slideInFromTop} className="opacity-[0.9]">
-        <h1 className="bg-gradient-to-r from-purple-500 to-cyan-500 bg-clip-text text-6xl font-bold text-transparent">
+        <h1 className="gradientMoveTitle text-6xl font-bold">
           Posts {category && `# ${category}`} {tag && `# ${tag}`}
         </h1>
       </motion.div>
