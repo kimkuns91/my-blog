@@ -14,6 +14,7 @@ import { getServerSession } from 'next-auth';
 import 'react-quill/dist/quill.snow.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 export const metadata: Metadata = {
   title: 'White Mouse Dev',
   description: 'White Mouse Dev',
