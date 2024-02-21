@@ -22,7 +22,7 @@ const Profile: React.FC<ProfileProps> = ({ name, imageUrl }) => {
           aria-label="Customise options"
         >
           <Image
-            src={imageUrl}
+            src={imageUrl || '/images/noUser.webp'}
             width={0}
             height={0}
             sizes="100vw"
