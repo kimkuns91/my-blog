@@ -1,11 +1,11 @@
-import { authOptions } from '@/libs/next-auth';
-import { getServerSession } from 'next-auth';
-import { NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
-    
+    const token = await getToken({ req: request });
+
+    console.log(token)
     // if (!session) {
     //   return NextResponse.json(
     //     {
