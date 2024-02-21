@@ -7,13 +7,13 @@ import '@/styles/globals.css';
 import ReactQueryProviders from '@/utils/react-query-provider';
 import { cn } from '@/utils/style';
 import '@radix-ui/themes/styles.css';
+import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import 'react-quill/dist/quill.snow.css';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 export const metadata: Metadata = {
   title: 'White Mouse Dev',
   description: 'White Mouse Dev',
@@ -57,6 +57,7 @@ export default async function RootLayout({
             </div>
           </div>
           <SpeedInsights />
+          <Analytics />
         </SessionProvider>
       </body>
     </html>
