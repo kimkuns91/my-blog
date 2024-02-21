@@ -26,6 +26,10 @@ hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("python", python);
 hljs.registerLanguage("typescript", typescript);
 hljs.registerLanguage("c", c);
+hljs.configure({
+  languages: ['javascript', 'ruby', 'python', 'java', 'cpp', 'kotlin', 'sql']
+});
+
 const formats = [
   'font',
   'size',
@@ -83,7 +87,7 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
         if (uploadError) throw uploadError;
 
         const publicUrl = `https://rgvzlonuavmjvodmalpd.supabase.co/storage/v1/object/public/images/${data?.path}`;
-        console.log('publicUrl:', publicUrl);
+
         // 에디터에 이미지 URL을 삽입합니다.
         const editor = quillRef.current;
         if (editor) {
@@ -152,10 +156,10 @@ const QuillEditor: React.FC<QuillEditorProps> = ({ content, setContent }) => {
         placeholder={'내용을 입력해주세요.'}
         defaultValue={content}
         value={content}
-        // onChange={(content, delta, source, editor) =>
-        //   setContent(editor.getHTML())
-        // }
-        onChange={(value) => setContent(value)}
+        onChange={(content, delta, source, editor) =>
+          setContent(editor.getHTML())
+        }
+        // onChange={(value) => setContent(value)}
         modules={modules}
         formats={formats}
       />
